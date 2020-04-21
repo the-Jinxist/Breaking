@@ -8,11 +8,11 @@ class HeadlineModel{
   HeadlineModel(this.status, this.totalResults, this.articles);
 
   factory HeadlineModel.fromJson(Map<String, dynamic> json){
-    List<Article> articles = List(0);
-
+    List<Article> articles = [];
+    
     String status = json["status"];
     int totalResults = json["totalResults"];
-    var articlesList  = json["articles"] as List<Map<String, dynamic>>;
+    var articlesList  = json["articles"] as List<dynamic>;
     for (json in articlesList){
 
       String id = json["source"]["id"];
@@ -31,6 +31,8 @@ class HeadlineModel{
 
       articles.add(article);
     }
+
+    print(articles[3].description);
 
     return HeadlineModel(status, totalResults, articles);
   }

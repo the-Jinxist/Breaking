@@ -22,6 +22,10 @@ class Utils{
     return "&apiKey=eb061db703c74bd5a87b413029f71075";
   }
 
+  static List<String> getCategoryList(){
+    return ["Business, Sports, Entertainment, Anime, Manga, Economy, Technology"];
+  }
+
 //  static String addSortParameter(){
 //    return "&"
 //  }
