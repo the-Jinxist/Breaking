@@ -8,7 +8,7 @@ import 'package:news_app/utils.dart';
 class NewsApi{
 
   Future<HeadlineModel> getHeadlines() async{
-    var response = await http.get(Utils.getBaseApiUrl()+"top-headlines?country=ng"+Utils.addApiKeyParameter());
+    var response = await http.get(Utils.getBaseApiUrl()+"top-headlines?country=us"+Utils.addApiKeyParameter());
     if(response.statusCode == 200){
       var jsonBody = json.decode(response.body);
       return HeadlineModel.fromJson(jsonBody);
