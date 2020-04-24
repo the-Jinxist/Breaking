@@ -32,7 +32,6 @@ class _HeadlinePageState extends State<HeadlinePage> {
             fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
           ),
         ),
-        elevation: 0,
         actions: <Widget>[
           Icon(Icons.search, color: Colors.black, size: 27,)
         ],

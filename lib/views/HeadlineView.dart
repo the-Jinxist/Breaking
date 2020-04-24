@@ -5,50 +5,43 @@ import 'package:news_app/utils.dart';
 class HeadlineView extends StatelessWidget {
 
   final Article headlineArticle;
+  List<BoxFit> values = [BoxFit.fitWidth, BoxFit.fitHeight];
 
   HeadlineView(this.headlineArticle);
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 10,
+      elevation: 5,
       clipBehavior: Clip.antiAlias,
       margin: EdgeInsets.all(7),
       child: Container(
-        height: 200,
+        height: 320,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(50))
         ),
-        child: Stack(
-          fit: StackFit.expand,
+        child: Column(
           children: <Widget>[
-            FadeInImage.assetNetwork(placeholder: "assets/images/news_image_paceholder.png", image: headlineArticle.urlToImage, fit: BoxFit.cover, height: 200),
-            Image.asset("assets/images/background_trans.png", fit: BoxFit.cover, height: 200),
-            Flex(
-              direction: Axis.vertical,
+            FadeInImage.assetNetwork(placeholder: "assets/images/news_image_paceholder.png", image: headlineArticle.urlToImage, fit: BoxFit.cover, height: 200, width: double.maxFinite,),
+            SizedBox(height: 20,),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: Text(headlineArticle.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: Utils.getBoldFont(), fontSize: 20, color: Colors.black),),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: Text(headlineArticle.description, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: Utils.getFontName(), fontSize: 12, color: Colors.black),),
+            ),
+            SizedBox(height: 3,),
+            Expanded(child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                Expanded(child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(height: 70,),
-                      Text(headlineArticle.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: Utils.getBoldFont(), fontSize: 20, color: Colors.white),),
-                      SizedBox(height: 3,),
-                      Text(headlineArticle.description, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: Utils.getFontName(), fontSize: 12, color: Colors.white),),
-                      SizedBox(height: 5,),
-                      Expanded(child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text(headlineArticle.source.name, style: TextStyle(fontFamily: Utils.getBoldFont(), fontSize: 10, color: Colors.green)),
-                        ],
-                      )
-                      )
-                    ],),
-                )
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: Text(headlineArticle.source.name, style: TextStyle(fontFamily: Utils.getBoldFont(), fontSize: 10, color: Colors.green)),
                 ),
               ],
+            )
             )
 
           ],
