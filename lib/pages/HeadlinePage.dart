@@ -26,37 +26,21 @@ class _HeadlinePageState extends State<HeadlinePage> {
     provider.getHeadlines();
 
     return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
-          padding: EdgeInsets.only(top: 40, right: 10, left: 10),
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text("Headlines!", style: new TextStyle(
-                      fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
-                    ),
-                  ),
-                  Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Icon(Icons.search, color: Colors.black, size: 27,)
-                        ],
-                      )
-                  )
-                ],
-              ),
-              SizedBox(height: 10,),
-//            Text("${provider.getHeadline()}, ${provider.isLoading()}"),
-              loadAccordingToProviderState(provider)
-//           ListView.builder(itemBuilder: (context, position) => Text("$position"), itemCount: categoryList.length)
-            ],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text("Headlines!", style: new TextStyle(
+            fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
           ),
         ),
+        elevation: 0,
+        actions: <Widget>[
+          Icon(Icons.search, color: Colors.black, size: 27,)
+        ],
+      ),
+      body: Container(
+        padding: EdgeInsets.only( right: 10, left: 10),
+        color: Colors.white,
+        child: loadAccordingToProviderState(provider),
       ),
     );
   }
@@ -64,12 +48,15 @@ class _HeadlinePageState extends State<HeadlinePage> {
   Widget loadAccordingToProviderState(HeadlineProvider provider){
     print(provider.isLoading());
     if (provider.isLoading()){
-      return Expanded(child: Center(child: CircularProgressIndicator()));
+      return Flex(
+        direction: Axis.vertical,
+        children: <Widget>[
+        Expanded(child: Center(child: CircularProgressIndicator()))
+      ], );
     }else{
       if(provider.getHeadline() != null){
         return ListView.builder(
             scrollDirection: Axis.vertical,
-            shrinkWrap: true,
             itemBuilder: (context, position) => HeadlineView(provider.getHeadline().articles[position]),
             itemCount: provider.getHeadline().articles.length);
       }else{
