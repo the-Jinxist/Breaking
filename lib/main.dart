@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/pages/HeadlinePage.dart';
+import 'package:news_app/pages/HomePage.dart';
+import 'package:news_app/provider/HeadlineProvider.dart';
 import 'package:news_app/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:news_app/provider/HeadlineProvider.dart';
 
 void main() => runApp(OnBoardingAppContainer());
 
@@ -12,9 +12,10 @@ class OnBoardingAppContainer extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: HeadlineProvider(),
       child: MaterialApp(
+        title: "NewsApp!",
         debugShowCheckedModeBanner: false,
         debugShowMaterialGrid: false,
-        home: HeadlinePage(),
+        home: HomePage(),
       ),
     );
   }

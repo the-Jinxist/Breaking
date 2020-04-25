@@ -9,22 +9,22 @@ class CategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(
-            color: Colors.green, width: 5
-          )
-
-        ),
+    return Container(
+      width: 200,
+      height: 400,
+      decoration: BoxDecoration(
+        color: Colors.green,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [BoxShadow(
+          color: Colors.black12, spreadRadius: 1, blurRadius: 1, offset: Offset(-1, 0)
+        )]
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
         child: Center(
           child: Text(categoryText, style: new TextStyle(
-              color: Colors.black, fontFamily: Utils.getFontName(), fontSize: 15
-            ),
+              color: Colors.white, fontFamily: Utils.getFontName(), fontSize: 15,
+          ),
           ),
         ),
       ),

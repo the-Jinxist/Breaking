@@ -53,6 +53,18 @@ class Article{
   Article(this.source, this.author, this.title, this.description, this.url, this.urlToImage,
       this.publishedAt, this.content);
 
+  Map<String, dynamic> toJson(){
+    var json = Map<String, dynamic>();
+
+    json["sourceName"] = source.name;
+    json["url"] = url;
+    json["urlToImage"] = urlToImage;
+    json["title"] = title;
+    json["description"] = description;
+
+    return json;
+  }
+
 }
 
 class Source{

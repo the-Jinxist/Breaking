@@ -6,10 +6,10 @@ import 'dart:async';
 class CacheRepo{
 
   //Todo: Google How to add classes to the db dynamically, cause the headline model
-  Future<Database> _getAndOpenDatabase() async{
-    var database = openDatabase(join( await getDatabasesPath(), "news_cache.db"),
+  Future<Database> _getAndOpenHeadlineCacheDatabase() async{
+    var database = openDatabase(join( await getDatabasesPath(), "headline_cache.db"),
         onCreate: (db, version){
-          return db.execute("CREATE TABLE headline(id INTEGER PRIMARY KEY, todoDesc TEXT, todoTitle TEXT, timeInMillis INTEGER, status TEXT)");
+          return db.execute("CREATE TABLE headline(id INTEGER PRIMARY KEY, sourceName TEXT, url TEXT, urlToImage INTEGER, title TEXT, description TEXT)");
         }, version: 1);
 
     return database;

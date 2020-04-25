@@ -22,7 +22,7 @@ class HeadlineView extends StatelessWidget {
         ),
         child: Column(
           children: <Widget>[
-            FadeInImage.assetNetwork(placeholder: "assets/images/news_image_paceholder.png", image: headlineArticle.urlToImage, fit: BoxFit.cover, height: 200, width: double.maxFinite,),
+            FadeInImage.assetNetwork(placeholder: "assets/images/news_image_paceholder.png", image: headlineArticle.urlToImage != null ? headlineArticle.urlToImage: "", fit: BoxFit.cover, height: 200, width: double.maxFinite,),
             SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
