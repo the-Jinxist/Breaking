@@ -25,21 +25,47 @@ class _HeadlinePageState extends State<HeadlinePage> {
     provider = Provider.of<HeadlineProvider>(context);
     provider.getHeadlines();
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Headlines!", style: new TextStyle(
-            fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
+              child: Row(
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Headlines!", style: new TextStyle(
+                          fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.black /* #10db5d */
+                        ),
+                      ),
+                      Text("All the top headlines from all over the world", style: new TextStyle(
+                          fontSize: 15.0, fontFamily: Utils.getFontName(), color: Colors.black /* #10db5d */
+                      ),
+                      ),
+
+                    ],
+                  ),
+                  Expanded(child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.search, color: Colors.black, size: 27,)
+                    ],
+                  ))
+                ],
+              ),
+            ),
           ),
         ),
-        actions: <Widget>[
-          Icon(Icons.search, color: Colors.black, size: 27,)
-        ],
-      ),
-      body: Container(
-        padding: EdgeInsets.only( right: 10, left: 10),
-        color: Colors.white,
-        child: loadAccordingToProviderState(provider),
+        body: Container(
+          padding: EdgeInsets.only( right: 10, left: 10),
+          color: Colors.white,
+          child: loadAccordingToProviderState(provider),
+        ),
       ),
     );
   }

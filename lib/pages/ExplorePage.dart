@@ -9,45 +9,62 @@ class ExplorePage extends StatefulWidget {
 
 class _ExplorePageState extends State<ExplorePage> {
 
-  var categoryList = ["Business", "Entertainment", "Sports", "Health", "Technology"];
+  var categoryList = ["Business", "Entertainment", "Sports", "Health", "Technology", "General", "Science"];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        title: Text("Explore!", style: new TextStyle(
-            fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(left: 15, right: 20, top: 10),
-          color: Colors.white,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-             Text("Category", style: new TextStyle(
-                 fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.black /* #10db5d */
-              ),
-             ),
-             SizedBox(height: 10,),
-              GridView.count(crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 1,
-              shrinkWrap: true,
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
+              child: Row(
                 children: <Widget>[
-                  CategoryView(categoryList[0]),
-                  CategoryView(categoryList[1]),
-                  CategoryView(categoryList[2]),
-                  CategoryView(categoryList[3]),
-                  CategoryView(categoryList[4]),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Explore", style: new TextStyle(
+                          fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.black /* #10db5d */
+                      ),
+                      ),
+                      Text("Find news from all categories!", style: new TextStyle(
+                          fontSize: 15.0, fontFamily: Utils.getFontName(), color: Colors.black /* #10db5d */
+                      ),
+                      ),
+
+                    ],
+                  ),
                 ],
               ),
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(left: 15, right: 20, top: 10),
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+               Text("Categories", style: new TextStyle(
+                   fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
+                ),
+               ),
+                Container(
+                  height: 50,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, position ) => CategoryView(categoryList[position]),
+                    itemCount: categoryList.length,
+                    shrinkWrap: true,
+                  ),
+                ),
 //            ListView.builder(
 //              scrollDirection: Axis.horizontal,
 //                shrinkWrap: true,
@@ -58,8 +75,9 @@ class _ExplorePageState extends State<ExplorePage> {
 //                },
 //              )
 //            ),
-             SizedBox(height: 10,),
-            ],
+               SizedBox(height: 10,),
+              ],
+            ),
           ),
         ),
       ),

@@ -73,7 +73,7 @@ flutter:
     - asset: assets/fonts/montserrat_regular.otf
   - family: Montesserat-Bold
     fonts:
-    - asset: assets/fonts/montserrat_bold.otf
+    - asset: assets/fonts/montserrat_extrabold.otf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

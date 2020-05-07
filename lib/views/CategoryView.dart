@@ -10,23 +10,19 @@ class CategoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
-      height: 400,
+      margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+      padding: EdgeInsets.only(left: 10, right: 10),
+      width: 130,
+      height: 20,
       decoration: BoxDecoration(
         color: Colors.green,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(2),
         boxShadow: [BoxShadow(
           color: Colors.black12, spreadRadius: 1, blurRadius: 1, offset: Offset(-1, 0)
         )]
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Center(
-          child: Text(categoryText, style: new TextStyle(
-              color: Colors.white, fontFamily: Utils.getFontName(), fontSize: 15,
-          ),
-          ),
-        ),
+      child: Center(
+        child: Text(categoryText, style: TextStyle(fontSize: 15, fontFamily: Utils.getFontName(), color: Colors.white),),
       ),
     );
   }
