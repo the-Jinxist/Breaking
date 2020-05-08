@@ -22,6 +22,7 @@ class _HeadlinePageState extends State<HeadlinePage> {
 
   @override
   Widget build(BuildContext context) {
+
     provider = Provider.of<HeadlineProvider>(context);
     provider.getHeadlines();
 
@@ -93,7 +94,7 @@ class _HeadlinePageState extends State<HeadlinePage> {
                 SizedBox(height: 10,),
                 Row(
                   children: <Widget>[
-                    Text("Check your internet connection and ", style: TextStyle(
+                    Text("Check your internet connection and try again", style: TextStyle(
                         fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
                     ),
                     ),

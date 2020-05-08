@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:news_app/api/NewsApi.dart';
@@ -29,10 +30,20 @@ class HeadlineProvider extends ChangeNotifier{
 
   Future getHeadlines() async {
     print(_isLoading);
-    var response = await NewsApi().getHeadlines();
-    setIsLoading(false);
-    print(_isLoading);
-    setHeadlineModel(response);
+    try{
+      var response = await NewsApi().getHeadlines();
+      if (response.statusCode == 200) {
+        var jsonBody = json.decode(response.body);
+        setHeadlineModel(HeadlineModel.fromJson(jsonBody));
+        setIsLoading(false);
+      }else{
+        setIsLoading(false);
+        setHeadlineModel(null);
+      }
+    }catch(e){
+      setIsLoading(false);
+      setHeadlineModel(null);
+    }
   }
 
   String _userName = "Loomba";

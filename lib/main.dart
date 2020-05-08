@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/pages/HomePage.dart';
 import 'package:news_app/provider/HeadlineProvider.dart';
+import 'package:news_app/provider/SourcesProvider.dart';
 import 'package:news_app/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -9,11 +10,23 @@ void main() => runApp(OnBoardingAppContainer());
 class OnBoardingAppContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: HeadlineProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+        value: HeadlineProvider()),
+        ChangeNotifierProvider.value(
+            value: SourcesProvider()),
+      ],
       child: MaterialApp(
         title: "NewsApp!",
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: Utils.getFontName(),
+          backgroundColor: Colors.white,
+          primaryColorLight: Colors.green,
+          primaryColorDark: Colors.lightGreen,
+          accentColor: Colors.amber
+        ),
         debugShowMaterialGrid: false,
         home: HomePage(),
       ),

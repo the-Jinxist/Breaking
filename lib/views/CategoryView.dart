@@ -12,8 +12,8 @@ class CategoryView extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
       padding: EdgeInsets.only(left: 10, right: 10),
-      width: 130,
-      height: 20,
+      width: 150,
+      height: 200,
       decoration: BoxDecoration(
         color: Colors.green,
         borderRadius: BorderRadius.circular(2),
