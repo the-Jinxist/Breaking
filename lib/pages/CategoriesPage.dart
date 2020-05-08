@@ -3,6 +3,7 @@ import 'package:news_app/model/HeadlineModel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:news_app/utils.dart';
+import 'package:news_app/views/HeadlineView.dart';
 
 class CategoriesPage extends StatefulWidget {
 
@@ -15,18 +16,36 @@ class CategoriesPage extends StatefulWidget {
 }
 
 class _CategoriesPageState extends State<CategoriesPage> {
+
+  String categoryName;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    categoryName = widget.categoryName;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: GestureDetector(child: Icon(Icons.clear, color: Colors.black, size: 17,), onTap: () => Navigator.pop(context),),
-        title: Text("${widget.categoryName[0].toUpperCase()}${widget.categoryName.substring(1, widget.categoryName.length - 1)} Category"),
+        title: Text("${categoryName[0].toUpperCase()}${categoryName.substring(1, categoryName.length - 1)} Category"),
       ),
       body: FutureBuilder(
-
+          future: getModels(widget.categoryName),
           builder: (context, snapshot){
-            return Container();
+            var headlineModel = snapshot as HeadlineModel;
+            if(headlineModel != null){
+              return ListView.builder(
+                itemBuilder: (context, positon) => HeadlineView(headlineModel.articles[positon]),
+                itemCount: headlineModel.articles.length,
+              );
+            }
+
+            return CircularProgressIndicator();
           }
         ),
     );
