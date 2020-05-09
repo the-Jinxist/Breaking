@@ -31,6 +31,7 @@ class _HeadlinePageState extends State<HeadlinePage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80),
           child: Container(
+            color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
               child: Row(
@@ -86,11 +87,13 @@ class _HeadlinePageState extends State<HeadlinePage> {
             itemBuilder: (context, position) => HeadlineView(provider.getHeadline().articles[position]),
             itemCount: provider.getHeadline().articles.length);
       }else{
-        return Expanded(
+        return Container(
+          height: double.maxFinite,
+          width: double.maxFinite,
           child: Center(
             child: Column(
               children: <Widget>[
-                Icon(Icons.error_outline, size: 100,  color: Colors.green,),
+                Icon(Icons.error_outline, size: 50,  color: Colors.green,),
                 SizedBox(height: 10,),
                 Row(
                   children: <Widget>[

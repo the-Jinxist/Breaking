@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/pages/CategoriesPage.dart';
 import 'package:news_app/utils.dart';
 import 'package:news_app/views/CategoryView.dart';
 import 'package:news_app/provider/SourcesProvider.dart';
@@ -13,7 +14,7 @@ class ExplorePage extends StatefulWidget {
 
 class _ExplorePageState extends State<ExplorePage> {
 
-  var categoryList = ["Business", "Entertainment", "Sports", "Health", "Technology", "General", "Science"];
+  var categoryList = ["business", "entertainment", "sports", "health", "technology", "general", "science"];
   SourcesProvider sourceProvider;
 
   @override
@@ -27,7 +28,7 @@ class _ExplorePageState extends State<ExplorePage> {
   @override
   Widget build(BuildContext context) {
 
-    sourceProvider = Provider.of<SourcesProvider>(context, listen: false);
+    sourceProvider = Provider.of<SourcesProvider>(context);
     sourceProvider.getSources();
 
     return SafeArea(
@@ -62,7 +63,7 @@ class _ExplorePageState extends State<ExplorePage> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.only(left: 15, right: 20, top: 10),
+            padding: EdgeInsets.only(left: 10, right: 10, top: 10),
             color: Colors.white,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -77,12 +78,20 @@ class _ExplorePageState extends State<ExplorePage> {
                   height: 50,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, position ) => CategoryView(categoryList[position]),
+                    itemBuilder: (context, position ) =>
+                        GestureDetector(child: CategoryView(capitalize(categoryList[position])), onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesPage(categoryList[position])));
+                        },),
                     itemCount: categoryList.length,
                     shrinkWrap: true,
                   ),
                 ),
                SizedBox(height: 10,),
+               Text("Sources", style: new TextStyle(
+                   fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
+               ),
+               ),
+               SizedBox(height: 2,),
                loadingAccordingToProviderState(sourceProvider),
               ],
             ),
@@ -103,7 +112,7 @@ class _ExplorePageState extends State<ExplorePage> {
     }else{
       if(sourceProvider.hasError){
         return Container(
-          height: 200,
+          height: 100,
           child: Center(
             child: Column(
               children: <Widget>[
@@ -115,13 +124,15 @@ class _ExplorePageState extends State<ExplorePage> {
           )
         );
       }else{
-        return GridView.count(
-          children: loadWidgets((sourceProvider.sources as Sources).sources),
-          crossAxisSpacing: 5,
-          mainAxisSpacing: 5,
-          childAspectRatio: 1,
-          crossAxisCount: categoryList.length,
-          shrinkWrap: true,
+        return Container(
+          height: 500,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, position ) => SourcesView((sourceProvider.sources as Sources).sources[position].name,
+                (sourceProvider.sources as Sources).sources[position].description),
+            itemCount: ((sourceProvider.sources) as Sources).sources.length,
+            shrinkWrap: true,
+          ),
         );
       }
     }
@@ -135,5 +146,14 @@ class _ExplorePageState extends State<ExplorePage> {
     }
 
     return widgets;
+  }
+
+  String capitalize(String str){
+    if(str.length > 1){
+      String capitalizedString = "${str[0].toUpperCase()}${str.substring(1, str.length - 1)}";
+      return capitalizedString;
+    }else{
+      return str.toUpperCase();
+    }
   }
 }

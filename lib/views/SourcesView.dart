@@ -11,19 +11,27 @@ class SourcesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber,
-      width: 100,
-      height: 150,
-      child: Card(
-        shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(40)),
-        elevation: 20,
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Text(sourceName, style: TextStyle(color: Colors.white, fontFamily: Utils.getBoldFont(), fontSize: 17), ),
-              Text(sourceDescription, style: TextStyle(color: Colors.white, fontFamily: Utils.getFontName(), fontSize: 14),),
-            ],
+    return Card(
+      color: Colors.green,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      elevation: 20,
+      child: Container(
+        width: 200,
+        height: 150,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(sourceName, style: TextStyle(color: Colors.white, fontFamily: Utils.getBoldFont(), fontSize: 17), ),
+                Text(sourceDescription, style:
+                TextStyle(color: Colors.white, fontFamily: Utils.getFontName(), fontSize: 14,), maxLines: 3, textAlign: TextAlign.center,
+
+                ),
+              ],
+            ),
           ),
         ),
       ),

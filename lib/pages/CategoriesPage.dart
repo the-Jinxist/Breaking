@@ -32,15 +32,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: GestureDetector(child: Icon(Icons.clear, color: Colors.black, size: 17,), onTap: () => Navigator.pop(context),),
-        title: Text("${categoryName[0].toUpperCase()}${categoryName.substring(1, categoryName.length - 1)} Category"),
+        title: Text("${capitalize(categoryName)} Category"),
       ),
       body: FutureBuilder(
-          future: getModels(widget.categoryName),
+          future: getModels(categoryName),
           builder: (context, snapshot){
             var headlineModel = snapshot as HeadlineModel;
             if(headlineModel != null){
               return ListView.builder(
-                itemBuilder: (context, positon) => HeadlineView(headlineModel.articles[positon]),
+                itemBuilder: (context, position) => HeadlineView(headlineModel.articles[position]),
                 itemCount: headlineModel.articles.length,
               );
             }
@@ -52,13 +52,22 @@ class _CategoriesPageState extends State<CategoriesPage> {
   }
 
   Future<HeadlineModel> getModels(String categoryName) async{
-    var response = await http.get(Utils.getBaseApiUrl()+"everything?category=""${widget.categoryName}${Utils.addApiKeyParameter()}");
+    var response = await http.get("${Utils.getBaseApiUrl()}everything?category=$categoryName${Utils.addApiKeyParameter()}");
     if (response.statusCode == 200){
       var responseBody = json.decode(response.body);
       return HeadlineModel.fromJson(responseBody);
     }else{
       print(response.statusCode);
      return null;
+    }
+  }
+
+  String capitalize(String str){
+    if(str.length > 1){
+      String capitalizedString = "${str[0].toUpperCase()}${str.substring(1, str.length - 1)}";
+      return capitalizedString;
+    }else{
+      return str.toUpperCase();
     }
   }
 }
