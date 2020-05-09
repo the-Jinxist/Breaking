@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/model/HeadlineModel.dart';
 import 'package:news_app/pages/CategoriesPage.dart';
 import 'package:news_app/utils.dart';
 import 'package:news_app/views/CategoryView.dart';
-import 'package:news_app/provider/SourcesProvider.dart';
+import 'package:news_app/provider/ExploreProvider.dart';
+import 'package:news_app/views/HeadlineView.dart';
 import 'package:news_app/views/SourcesView.dart';
 import 'package:provider/provider.dart';
 import 'package:news_app/model/SourceModel.dart';
@@ -15,7 +17,7 @@ class ExplorePage extends StatefulWidget {
 class _ExplorePageState extends State<ExplorePage> {
 
   var categoryList = ["business", "entertainment", "sports", "health", "technology", "general", "science"];
-  SourcesProvider sourceProvider;
+  ExploreProvider exploreProvider;
 
   @override
   void initState() {
@@ -28,8 +30,9 @@ class _ExplorePageState extends State<ExplorePage> {
   @override
   Widget build(BuildContext context) {
 
-    sourceProvider = Provider.of<SourcesProvider>(context);
-    sourceProvider.getSources();
+    exploreProvider = Provider.of<ExploreProvider>(context);
+    exploreProvider.getSources();
+    exploreProvider.getPopularPosts();
 
     return SafeArea(
       child: Scaffold(
@@ -89,10 +92,16 @@ class _ExplorePageState extends State<ExplorePage> {
                SizedBox(height: 10,),
                Text("Sources", style: new TextStyle(
                    fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
-               ),
+                ),
                ),
                SizedBox(height: 2,),
-               loadingAccordingToProviderState(sourceProvider),
+               loadingSourcesAccordingToProviderState(exploreProvider),
+               SizedBox(height: 10,),
+               Text("Popular", style: new TextStyle(
+                   fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
+                ),
+               ),
+                loadingPopularAccordingToProviderState(exploreProvider)
               ],
             ),
           ),
@@ -101,7 +110,7 @@ class _ExplorePageState extends State<ExplorePage> {
     );
   }
 
-  Widget loadingAccordingToProviderState(SourcesProvider sourceProvider){
+  Widget loadingSourcesAccordingToProviderState(ExploreProvider sourceProvider){
     if(sourceProvider.isLoading){
         return Container(
           height: 200,
@@ -125,12 +134,48 @@ class _ExplorePageState extends State<ExplorePage> {
         );
       }else{
         return Container(
-          height: 500,
+          height: 200,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, position ) => SourcesView((sourceProvider.sources as Sources).sources[position].name,
                 (sourceProvider.sources as Sources).sources[position].description),
             itemCount: ((sourceProvider.sources) as Sources).sources.length,
+            shrinkWrap: true,
+          ),
+        );
+      }
+    }
+  }
+
+  Widget loadingPopularAccordingToProviderState(ExploreProvider exploreProvider){
+    if(exploreProvider.popularIsLoading){
+      return Container(
+        height: 200,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ) ,
+      );
+    }else{
+      if(exploreProvider.popularHasError){
+        return Container(
+            height: 100,
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Icon(Icons.error, size: 40, color: Colors.red,),
+                  SizedBox(height: 2,),
+                  Text("Sorry, an error occured!", style: TextStyle(fontSize: 15, fontFamily: Utils.getFontName(), color: Colors.black),)
+                ],
+              ),
+            )
+        );
+      }else{
+        return Container(
+          height: 200,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, position ) => HeadlineView((exploreProvider.popular as HeadlineModel).articles[position]),
+            itemCount: ((exploreProvider.popular as HeadlineModel).articles.length),
             shrinkWrap: true,
           ),
         );

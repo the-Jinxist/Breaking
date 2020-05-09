@@ -26,7 +26,7 @@ class HeadlineModel{
       String publishedAt = json["publishedAt"];
       String content = json["content"];
 
-      Source source = Source(id, name);
+      SourceModel source = SourceModel(id, name);
       var article = Article(source, author, title, description, url, urlToImage, publishedAt, content);
 
       articles.add(article);
@@ -41,7 +41,7 @@ class HeadlineModel{
 
 class Article{
 
-  final Source source;
+  final SourceModel source;
   final String author;
   final String title;
   final String description;
@@ -67,11 +67,11 @@ class Article{
 
 }
 
-class Source{
+class SourceModel{
 
   String id;
   String name;
 
-  Source(this.id, this.name);
+  SourceModel(this.id, this.name);
 
 }

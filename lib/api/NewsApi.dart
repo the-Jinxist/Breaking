@@ -13,5 +13,9 @@ class NewsApi{
   Future<http.Response> getSources(){
     return http.get(Utils.getBaseApiUrl()+"sources?country=us&language=en"+Utils.addApiKeyParameter());
   }
+  
+  Future<http.Response> getPopularPosts(){
+    return http.get(Utils.getBaseApiUrl()+"everything?sortBy=popularity"+Utils.addApiKeyParameter());
+  }
 
 }

@@ -14,7 +14,7 @@ class SourcesView extends StatelessWidget {
     return Card(
       color: Colors.green,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 20,
+      elevation: 2,
       child: Container(
         width: 200,
         height: 150,
