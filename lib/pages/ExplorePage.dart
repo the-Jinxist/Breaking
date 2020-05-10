@@ -113,7 +113,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget loadingSourcesAccordingToProviderState(ExploreProvider sourceProvider){
     if(sourceProvider.isLoading){
         return Container(
-          height: 200,
+          height: 190,
           child: Center(
             child: CircularProgressIndicator(),
           ) ,
@@ -121,9 +121,11 @@ class _ExplorePageState extends State<ExplorePage> {
     }else{
       if(sourceProvider.hasError){
         return Container(
-          height: 100,
+          height: 190,
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Icon(Icons.error, size: 40, color: Colors.red,),
                 SizedBox(height: 2,),
@@ -134,7 +136,7 @@ class _ExplorePageState extends State<ExplorePage> {
         );
       }else{
         return Container(
-          height: 200,
+          height: 190,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, position ) => SourcesView((sourceProvider.sources as Sources).sources[position].name,
@@ -158,9 +160,11 @@ class _ExplorePageState extends State<ExplorePage> {
     }else{
       if(exploreProvider.popularHasError){
         return Container(
-            height: 100,
+            height: 200,
             child: Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Icon(Icons.error, size: 40, color: Colors.red,),
                   SizedBox(height: 2,),

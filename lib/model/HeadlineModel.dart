@@ -32,8 +32,6 @@ class HeadlineModel{
       articles.add(article);
     }
 
-    print(articles[3].description);
-
     return HeadlineModel(status, totalResults, articles);
   }
 

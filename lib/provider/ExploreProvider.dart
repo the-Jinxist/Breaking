@@ -89,6 +89,9 @@ class ExploreProvider extends ChangeNotifier{
         error = Error(response.statusCode);
       }
     }catch(e){
+
+      print("Explore Provider - Categories Error: $e");
+
       isLoading = false;
       hasError = true;
 
@@ -104,6 +107,8 @@ class ExploreProvider extends ChangeNotifier{
       if (response.statusCode == 200){
         var jsonBody = json.decode(response.body);
         popular = HeadlineModel.fromJson(jsonBody);
+
+        print("From Explore Provider: " + (popular as HeadlineModel).articles[3].description);
         popularIsLoading = false;
         popularHasError = false;
       }else{
@@ -111,8 +116,12 @@ class ExploreProvider extends ChangeNotifier{
         popularHasError = true;
 
         popularError = Error(response.statusCode);
+        print("Explore Provider - Popular Error: ${response.statusCode}");
       }
     }catch(e){
+
+      print("Explore Provider - Popular Error: $e");
+
       popularIsLoading = false;
       popularHasError = true;
 

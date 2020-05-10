@@ -28,26 +28,97 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: GestureDetector(child: Icon(Icons.clear, color: Colors.black, size: 17,), onTap: () => Navigator.pop(context),),
-        title: Text("${capitalize(categoryName)} Category"),
-      ),
-      body: FutureBuilder(
-          future: getModels(categoryName),
-          builder: (context, snapshot){
-            var headlineModel = snapshot as HeadlineModel;
-            if(headlineModel != null){
-              return ListView.builder(
-                itemBuilder: (context, position) => HeadlineView(headlineModel.articles[position]),
-                itemCount: headlineModel.articles.length,
-              );
-            }
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(80),
+          child: Container(
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
+              child: Row(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Icon(Icons.search, color: Colors.black, size: 27,),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Category", style: new TextStyle(
+                          fontSize: 15.0, fontFamily: Utils.getFontName(), color: Colors.black, fontWeight: FontWeight.bold /* #10db5d */
+                      ),
+                      ),
+                      Text("${capitalize(categoryName)}", style: new TextStyle(
+                          fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.black /* #10db5d */
+                      ),
+                      ),
 
-            return CircularProgressIndicator();
-          }
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
+        body: Container(
+          color: Colors.white,
+          child: FutureBuilder(
+              future: getModels(categoryName),
+              builder: (context, snapshot){
+                if(snapshot.hasData){
+                  var headlineModel = snapshot.data as HeadlineModel;
+                  if (headlineModel != null) {
+                    return ListView.builder(
+                      itemBuilder: (context, position) =>
+                          HeadlineView(headlineModel.articles[position]),
+                      itemCount: headlineModel.articles.length,
+                    );
+                  } else {
+                    return Flex(
+                      direction: Axis.vertical,
+                      children: <Widget>[
+                        Expanded(child:
+                        Center(
+                            child: Column(
+                              children: <Widget>[
+                                Icon(Icons.error, size: 40, color: Colors.red,),
+                                SizedBox(height: 4),
+                                Text("Please check your internet connection", style: TextStyle(color: Colors.black, fontFamily: Utils.getFontName(), fontSize: 17),)
+                              ],
+                            )
+                        )
+                        )
+                      ],
+                    );
+                  }
+
+                }else if(snapshot.hasError){
+                  return Flex(
+                    direction: Axis.vertical,
+                    children: <Widget>[
+                      Expanded(child:
+                      Center(
+                          child: Column(
+                            children: <Widget>[
+                              Icon(Icons.error, size: 40, color: Colors.red,),
+                              SizedBox(height: 4),
+                              Text("Please check your internet connection", style: TextStyle(color: Colors.black, fontFamily: Utils.getFontName(), fontSize: 17),)
+                            ],
+                          )
+                      )
+                      )
+                    ],
+                  );
+                }
+
+                return CircularProgressIndicator();
+              }
+            ),
+        ),
+      ),
     );
   }
 

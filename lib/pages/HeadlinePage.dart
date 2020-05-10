@@ -79,7 +79,8 @@ class _HeadlinePageState extends State<HeadlinePage> {
         direction: Axis.vertical,
         children: <Widget>[
         Expanded(child: Center(child: CircularProgressIndicator()))
-      ], );
+        ],
+      );
     }else{
       if(provider.getHeadline() != null){
         return ListView.builder(
@@ -91,20 +92,25 @@ class _HeadlinePageState extends State<HeadlinePage> {
           height: double.maxFinite,
           width: double.maxFinite,
           child: Center(
-            child: Column(
-              children: <Widget>[
-                Icon(Icons.error_outline, size: 50,  color: Colors.green,),
-                SizedBox(height: 10,),
-                Row(
-                  children: <Widget>[
-                    Text("Check your internet connection and try again", style: TextStyle(
-                        fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
-                    ),
-                    ),
-                    SizedBox(width: 5,),
-                  ],
-                )
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Icon(Icons.error, size: 40, color: Colors.red,),
+                  SizedBox(height: 10,),
+                  Row(
+                    children: <Widget>[
+                      Text("Check your internet connection and try again", style: TextStyle(
+                          fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
+                      ),
+                      ),
+                      SizedBox(width: 5,),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         );

@@ -29,7 +29,7 @@ class HeadlineProvider extends ChangeNotifier{
   }
 
   Future getHeadlines() async {
-    print(_isLoading);
+
     try{
       var response = await NewsApi().getHeadlines();
       if (response.statusCode == 200) {
@@ -41,6 +41,9 @@ class HeadlineProvider extends ChangeNotifier{
         setHeadlineModel(null);
       }
     }catch(e){
+
+      print("Headline Provider - Headline Error: $e");
+
       setIsLoading(false);
       setHeadlineModel(null);
     }
