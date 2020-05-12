@@ -15,7 +15,7 @@ class NewsApi{
   }
   
   Future<http.Response> getPopularPosts(){
-    return http.get(Utils.getBaseApiUrl()+"everything?sortBy=popularity"+Utils.addApiKeyParameter());
+    return http.get(Utils.getBaseApiUrl()+"everything?q=covid&sortBy=popularity"+Utils.addApiKeyParameter());
   }
 
 }

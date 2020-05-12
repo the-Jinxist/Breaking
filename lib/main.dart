@@ -23,8 +23,10 @@ class OnBoardingAppContainer extends StatelessWidget {
         theme: ThemeData(
           fontFamily: Utils.getFontName(),
           backgroundColor: Colors.white,
-          primaryColorLight: Colors.green,
-          primaryColorDark: Colors.lightGreen,
+          primaryColorLight: Colors.white,
+          primaryColor: Colors.white,
+          splashColor: Colors.green,
+          primaryColorDark: Colors.grey,
           accentColor: Colors.amber
         ),
         debugShowMaterialGrid: false,

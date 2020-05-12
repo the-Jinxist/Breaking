@@ -38,11 +38,13 @@ class _CategoriesPageState extends State<CategoriesPage> {
             child: Padding(
               padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: Icon(Icons.search, color: Colors.black, size: 27,),
+                    child: Icon(Icons.arrow_back, color: Colors.black, size: 27,),
                   ),
+                  SizedBox(width: 20,),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,12 +73,14 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 if(snapshot.hasData){
                   var headlineModel = snapshot.data as HeadlineModel;
                   if (headlineModel != null) {
+                    print("Categories Page: Data dey!");
                     return ListView.builder(
                       itemBuilder: (context, position) =>
                           HeadlineView(headlineModel.articles[position]),
                       itemCount: headlineModel.articles.length,
                     );
                   } else {
+                    print("Categories Page: Data no dey!");
                     return Flex(
                       direction: Axis.vertical,
                       children: <Widget>[
@@ -96,6 +100,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                   }
 
                 }else if(snapshot.hasError){
+                  print("Categories Page: Error dey!");
                   return Flex(
                     direction: Axis.vertical,
                     children: <Widget>[
@@ -112,9 +117,18 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       )
                     ],
                   );
+                }else{
+                  return Flex(
+                    direction: Axis.vertical,
+                    children: <Widget>[
+                      Expanded(child:
+                      Center(
+                          child: CircularProgressIndicator()
+                        )
+                      )
+                    ],
+                  );
                 }
-
-                return CircularProgressIndicator();
               }
             ),
         ),
@@ -123,9 +137,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
   }
 
   Future<HeadlineModel> getModels(String categoryName) async{
+    print("Loading Models");
     var response = await http.get("${Utils.getBaseApiUrl()}everything?category=$categoryName${Utils.addApiKeyParameter()}");
     if (response.statusCode == 200){
       var responseBody = json.decode(response.body);
+      print("Headline Model: $responseBody");
       return HeadlineModel.fromJson(responseBody);
     }else{
       print(response.statusCode);
@@ -135,7 +151,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   String capitalize(String str){
     if(str.length > 1){
-      String capitalizedString = "${str[0].toUpperCase()}${str.substring(1, str.length - 1)}";
+      String capitalizedString = "${str[0].toUpperCase()}${str.substring(1, str.length)}";
       return capitalizedString;
     }else{
       return str.toUpperCase();

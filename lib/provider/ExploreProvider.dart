@@ -75,57 +75,61 @@ class ExploreProvider extends ChangeNotifier{
   get popularIsLoading => _isPopularLoading;
 
   Future getSources() async {
-    try{
-      var response  = await NewsApi().getSources();
-      if (response.statusCode == 200){
-        var jsonBody = json.decode(response.body);
-        sources = Sources.fromJson(jsonBody);
-        isLoading = false;
-        hasError = false;
-      }else{
+    if(isLoading){
+      try{
+        var response  = await NewsApi().getSources();
+        if (response.statusCode == 200){
+          var jsonBody = json.decode(response.body);
+          sources = Sources.fromJson(jsonBody);
+          isLoading = false;
+          hasError = false;
+        }else{
+          isLoading = false;
+          hasError = true;
+
+          error = Error(response.statusCode);
+        }
+      }catch(e){
+
+        print("Explore Provider - Categories Error: $e");
+
         isLoading = false;
         hasError = true;
 
-        error = Error(response.statusCode);
+        error = Error(123);
       }
-    }catch(e){
-
-      print("Explore Provider - Categories Error: $e");
-
-      isLoading = false;
-      hasError = true;
-
-      error = Error(123);
     }
 
   }
 
   Future getPopularPosts() async {
 
-    try{
-      var response  = await NewsApi().getPopularPosts();
-      if (response.statusCode == 200){
-        var jsonBody = json.decode(response.body);
-        popular = HeadlineModel.fromJson(jsonBody);
+    if(popularIsLoading){
+      try{
+        var response  = await NewsApi().getPopularPosts();
+        if (response.statusCode == 200){
+          var jsonBody = json.decode(response.body);
+          popular = HeadlineModel.fromJson(jsonBody);
 
-        print("From Explore Provider: " + (popular as HeadlineModel).articles[3].description);
-        popularIsLoading = false;
-        popularHasError = false;
-      }else{
+          print("From Explore Provider: " + (popular as HeadlineModel).articles[3].description);
+          popularIsLoading = false;
+          popularHasError = false;
+        }else{
+          popularIsLoading = false;
+          popularHasError = true;
+
+          popularError = Error(response.statusCode);
+          print("Explore Provider - Popular Error: ${response.statusCode}");
+        }
+      }catch(e){
+
+        print("Explore Provider - Popular Error: $e");
+
         popularIsLoading = false;
         popularHasError = true;
 
-        popularError = Error(response.statusCode);
-        print("Explore Provider - Popular Error: ${response.statusCode}");
+        error = Error(123);
       }
-    }catch(e){
-
-      print("Explore Provider - Popular Error: $e");
-
-      popularIsLoading = false;
-      popularHasError = true;
-
-      error = Error(123);
     }
 
   }

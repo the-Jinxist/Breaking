@@ -30,22 +30,24 @@ class HeadlineProvider extends ChangeNotifier{
 
   Future getHeadlines() async {
 
-    try{
-      var response = await NewsApi().getHeadlines();
-      if (response.statusCode == 200) {
-        var jsonBody = json.decode(response.body);
-        setHeadlineModel(HeadlineModel.fromJson(jsonBody));
-        setIsLoading(false);
-      }else{
+    if(isLoading()){
+      try{
+        var response = await NewsApi().getHeadlines();
+        if (response.statusCode == 200) {
+          var jsonBody = json.decode(response.body);
+          setHeadlineModel(HeadlineModel.fromJson(jsonBody));
+          setIsLoading(false);
+        }else{
+          setIsLoading(false);
+          setHeadlineModel(null);
+        }
+      }catch(e){
+
+        print("Headline Provider - Headline Error: $e");
+
         setIsLoading(false);
         setHeadlineModel(null);
       }
-    }catch(e){
-
-      print("Headline Provider - Headline Error: $e");
-
-      setIsLoading(false);
-      setHeadlineModel(null);
     }
   }
 
@@ -63,7 +65,7 @@ class HeadlineProvider extends ChangeNotifier{
   }
 
   String _returnRandomName(){
-    var random = Random().nextInt(_randomListOfName.length - 1);
+    var random = Random().nextInt(_randomListOfName.length);
     return _randomListOfName[random];
   }
 

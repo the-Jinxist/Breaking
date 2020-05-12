@@ -113,7 +113,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget loadingSourcesAccordingToProviderState(ExploreProvider sourceProvider){
     if(sourceProvider.isLoading){
         return Container(
-          height: 190,
+          height: 100,
           child: Center(
             child: CircularProgressIndicator(),
           ) ,
@@ -121,7 +121,7 @@ class _ExplorePageState extends State<ExplorePage> {
     }else{
       if(sourceProvider.hasError){
         return Container(
-          height: 190,
+          height: 100,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -136,7 +136,7 @@ class _ExplorePageState extends State<ExplorePage> {
         );
       }else{
         return Container(
-          height: 190,
+          height: 100,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, position ) => SourcesView((sourceProvider.sources as Sources).sources[position].name,
@@ -152,7 +152,7 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget loadingPopularAccordingToProviderState(ExploreProvider exploreProvider){
     if(exploreProvider.popularIsLoading){
       return Container(
-        height: 200,
+        height: 350,
         child: Center(
           child: CircularProgressIndicator(),
         ) ,
@@ -160,7 +160,7 @@ class _ExplorePageState extends State<ExplorePage> {
     }else{
       if(exploreProvider.popularHasError){
         return Container(
-            height: 200,
+            height: 350,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -175,10 +175,13 @@ class _ExplorePageState extends State<ExplorePage> {
         );
       }else{
         return Container(
-          height: 200,
+          height: 350,
+          width: double.maxFinite,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemBuilder: (context, position ) => HeadlineView((exploreProvider.popular as HeadlineModel).articles[position]),
+            itemBuilder: (context, position ) => SourcesView((exploreProvider.popular as HeadlineModel).articles[position].source.name,
+                (exploreProvider.popular as HeadlineModel).articles[position].source.name),
+// HeadlineView((exploreProvider.popular as HeadlineModel).articles[position]),
             itemCount: ((exploreProvider.popular as HeadlineModel).articles.length),
             shrinkWrap: true,
           ),
