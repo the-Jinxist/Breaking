@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/model/HeadlineModel.dart';
+import 'package:news_app/model/SourceModel.dart';
 import 'package:news_app/pages/CategoriesPage.dart';
+import 'package:news_app/provider/ExploreProvider.dart';
 import 'package:news_app/utils.dart';
 import 'package:news_app/views/CategoryView.dart';
-import 'package:news_app/provider/ExploreProvider.dart';
-import 'package:news_app/views/HeadlineView.dart';
 import 'package:news_app/views/SourcesView.dart';
 import 'package:provider/provider.dart';
-import 'package:news_app/model/SourceModel.dart';
 
 class ExplorePage extends StatefulWidget {
   @override
@@ -18,14 +17,6 @@ class _ExplorePageState extends State<ExplorePage> {
 
   var categoryList = ["business", "entertainment", "sports", "health", "technology", "general", "science"];
   ExploreProvider exploreProvider;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +129,7 @@ class _ExplorePageState extends State<ExplorePage> {
         return Container(
           height: 100,
           child: ListView.builder(
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, position ) => SourcesView((sourceProvider.sources as Sources).sources[position].name,
                 (sourceProvider.sources as Sources).sources[position].description),
@@ -178,6 +170,7 @@ class _ExplorePageState extends State<ExplorePage> {
           height: 350,
           width: double.maxFinite,
           child: ListView.builder(
+            physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, position ) => SourcesView((exploreProvider.popular as HeadlineModel).articles[position].source.name,
                 (exploreProvider.popular as HeadlineModel).articles[position].source.name),
@@ -202,7 +195,7 @@ class _ExplorePageState extends State<ExplorePage> {
 
   String capitalize(String str){
     if(str.length > 1){
-      String capitalizedString = "${str[0].toUpperCase()}${str.substring(1, str.length - 1)}";
+      String capitalizedString = "${str[0].toUpperCase()}${str.substring(1, str.length)}";
       return capitalizedString;
     }else{
       return str.toUpperCase();

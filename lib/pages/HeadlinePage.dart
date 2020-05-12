@@ -85,6 +85,7 @@ class _HeadlinePageState extends State<HeadlinePage> {
       if(provider.getHeadline() != null){
         return ListView.builder(
             scrollDirection: Axis.vertical,
+            physics: ClampingScrollPhysics(),
             itemBuilder: (context, position) => HeadlineView(provider.getHeadline().articles[position]),
             itemCount: provider.getHeadline().articles.length);
       }else{

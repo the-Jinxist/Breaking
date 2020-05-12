@@ -138,13 +138,13 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   Future<HeadlineModel> getModels(String categoryName) async{
     print("Loading Models");
-    var response = await http.get("${Utils.getBaseApiUrl()}everything?category=$categoryName${Utils.addApiKeyParameter()}");
+    var response = await http.get("http://newsapi.org/v2/top-headlines?country=us&catgeory=$categoryName${Utils.addApiKeyParameter()}");
     if (response.statusCode == 200){
       var responseBody = json.decode(response.body);
       print("Headline Model: $responseBody");
       return HeadlineModel.fromJson(responseBody);
     }else{
-      print(response.statusCode);
+      print("Categories Error: ${response.statusCode}");
      return null;
     }
   }
