@@ -18,4 +18,12 @@ class NewsApi{
     return http.get(Utils.getBaseApiUrl()+"everything?q=covid&sortBy=popularity"+Utils.addApiKeyParameter());
   }
 
+  Future<http.Response> getCategories(String categoryName){
+    return http.get("http://newsapi.org/v2/top-headlines?country=us&catgeory=$categoryName${Utils.addApiKeyParameter()}");
+  }
+
+  Future<http.Response> getSearchResults(String searchQuery){
+    return http.get("http://newsapi.org/v2/everything?q=$searchQuery${Utils.addApiKeyParameter()}");
+  }
+
 }

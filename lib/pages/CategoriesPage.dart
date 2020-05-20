@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/api/NewsApi.dart';
 import 'package:news_app/model/HeadlineModel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -138,7 +139,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   Future<HeadlineModel> getModels(String categoryName) async{
     print("Loading Models");
-    var response = await http.get("http://newsapi.org/v2/top-headlines?country=us&catgeory=$categoryName${Utils.addApiKeyParameter()}");
+    var response = await NewsApi().getCategories(categoryName);
     if (response.statusCode == 200){
       var responseBody = json.decode(response.body);
       print("Headline Model: $responseBody");

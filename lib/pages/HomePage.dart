@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/pages/HeadlinePage.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:news_app/pages/ExplorePage.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,20 +18,35 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: fragmentList[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("Home")),
-          BottomNavigationBarItem(icon: Icon(Icons.explore), title: Text("Explore")),
+      bottomNavigationBar: CurvedNavigationBar(
+        items: [
+          Icon(CupertinoIcons.home, size: 30),
+          Icon(CupertinoIcons.collections, size: 30),
+//          Icon(CupertinoIcons.settings, size: 30),
         ],
-        backgroundColor: Colors.white,
-        currentIndex: currentIndex,
-        unselectedItemColor: Colors.black,
-        selectedItemColor: Colors.green,
-        onTap: (index){
-        setState(() {
-          currentIndex = index;
-        });
+        onTap: (position){
+          setState(() {
+            currentIndex = position;
+          });
         },
-      ),
+        index: 0,
+        backgroundColor: Colors.green,
+      )
+
+//      BottomNavigationBar(items: [
+//          BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text("Home")),
+//          BottomNavigationBarItem(icon: Icon(CupertinoIcons.collections), title: Text("Explore")),
+//        ],
+//        backgroundColor: Colors.white,
+//        currentIndex: currentIndex,
+//        unselectedItemColor: Colors.black,
+//        selectedItemColor: Colors.green,
+//        onTap: (index){
+//        setState(() {
+//          currentIndex = index;
+//        });
+//        },
+//      ),
     );
   }
 }

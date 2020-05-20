@@ -20,6 +20,8 @@ dependencies:
   sqflite:
   provider:
   shared_preferences:
+  webview_flutter: 0.2.0
+  curved_navigation_bar: ^0.3.2
   http:
   flutter:
     sdk: flutter

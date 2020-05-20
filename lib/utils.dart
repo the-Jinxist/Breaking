@@ -26,8 +26,13 @@ class Utils{
     return ["Business, Sports, Entertainment, Anime, Manga, Economy, Technology"];
   }
 
-//  static String addSortParameter(){
-//    return "&"
-//  }
+}
+
+enum LoadingStates{
+  Idle,
+  Loading,
+  Done,
+  Error
 
 }
+
