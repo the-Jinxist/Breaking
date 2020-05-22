@@ -3,6 +3,7 @@ import 'package:news_app/pages/HeadlinePage.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:news_app/pages/ExplorePage.dart';
+import 'package:news_app/pages/SearchPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  var fragmentList = [HeadlinePage(), ExplorePage()];
+  var fragmentList = [HeadlinePage(), ExplorePage(), SearchPage()];
   var currentIndex = 0;
 
   @override
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
         items: [
           Icon(CupertinoIcons.home, size: 30),
           Icon(CupertinoIcons.collections, size: 30),
-//          Icon(CupertinoIcons.settings, size: 30),
+          Icon(CupertinoIcons.search, size: 30),
         ],
         onTap: (position){
           setState(() {

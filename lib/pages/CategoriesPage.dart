@@ -142,7 +142,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
     var response = await NewsApi().getCategories(categoryName);
     if (response.statusCode == 200){
       var responseBody = json.decode(response.body);
-      print("Headline Model: $responseBody");
+      print("Headline Model from Categories Page: $responseBody");
       return HeadlineModel.fromJson(responseBody);
     }else{
       print("Categories Error: ${response.statusCode}");
