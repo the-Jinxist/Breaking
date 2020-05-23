@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/api/NewsApi.dart';
 import 'package:news_app/cache/CacheRepo.dart';
 import 'package:news_app/model/HeadlineModel.dart';
+import 'package:news_app/pages/WebPageView.dart';
 import 'package:news_app/utils.dart';
 import 'package:news_app/views/HeadlineView.dart';
 
@@ -131,7 +132,16 @@ class _SearchPageState extends State<SearchPage> {
                     itemCount: headlineModel.articles.length,
                     physics: ClampingScrollPhysics(),
                     itemBuilder: (context, position){
-                      return HeadlineView(headlineModel.articles[position]);
+
+                      var headline = headlineModel.articles[position];
+                      return InkWell(
+                        onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => WebPageView(url: headline.url, sourceName: headline.source.name,))
+                          );
+                        },
+                        child: HeadlineView(headlineModel.articles[position])
+                      );
                     }
                   );
                 }else if(snapshot.hasError){

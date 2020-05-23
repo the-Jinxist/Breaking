@@ -1,6 +1,6 @@
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/pages/HeadlinePage.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:news_app/pages/ExplorePage.dart';
 import 'package:news_app/pages/SearchPage.dart';
@@ -19,21 +19,48 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: fragmentList[currentIndex],
-      bottomNavigationBar: CurvedNavigationBar(
-        items: [
-          Icon(CupertinoIcons.home, size: 30),
-          Icon(CupertinoIcons.collections, size: 30),
-          Icon(CupertinoIcons.search, size: 30),
-        ],
-        onTap: (position){
+      bottomNavigationBar: BottomNavyBar(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        selectedIndex: currentIndex,
+        onItemSelected: (position){
           setState(() {
             currentIndex = position;
           });
         },
-        index: 0,
-        buttonBackgroundColor: Colors.green,
-        backgroundColor: Colors.white,
-      )
+        items: [
+          BottomNavyBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+            activeColor: Colors.green,
+          ),
+          BottomNavyBarItem(
+              icon: Icon(Icons.explore),
+              title: Text('Users'),
+              activeColor: Colors.green
+          ),
+          BottomNavyBarItem(
+              icon: Icon(Icons.search),
+              title: Text('Settings'),
+              activeColor: Colors.green
+          ),
+        ],
+      ),
+
+//      CurvedNavigationBar(
+//        items: [
+//          Icon(CupertinoIcons.home, size: 30),
+//          Icon(CupertinoIcons.collections, size: 30),
+//          Icon(CupertinoIcons.search, size: 30),
+//        ],
+//        onTap: (position){
+//          setState(() {
+//            currentIndex = position;
+//          });
+//        },
+//        index: 0,
+//        buttonBackgroundColor: Colors.green,
+//        backgroundColor: Colors.white,
+//      )
 
 //      BottomNavigationBar(items: [
 //          BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text("Home")),

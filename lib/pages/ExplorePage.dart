@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/model/HeadlineModel.dart';
 import 'package:news_app/model/SourceModel.dart';
 import 'package:news_app/pages/CategoriesPage.dart';
+import 'package:news_app/pages/WebPageView.dart';
 import 'package:news_app/provider/ExploreProvider.dart';
 import 'package:news_app/utils.dart';
 import 'package:news_app/views/CategoryView.dart';
@@ -131,8 +132,16 @@ class _ExplorePageState extends State<ExplorePage> {
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            itemBuilder: (context, position ) => SourcesView((sourceProvider.sources as Sources).sources[position].name,
-                (sourceProvider.sources as Sources).sources[position].description),
+            itemBuilder: (context, position ) => InkWell(
+              onTap: (){
+                var source = (sourceProvider.sources as Sources).sources[position];
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => WebPageView(url: source.url, sourceName: source.name,))
+                );
+              },
+              child: SourcesView((sourceProvider.sources as Sources).sources[position].name,
+                  (sourceProvider.sources as Sources).sources[position].description),
+            ),
             itemCount: ((sourceProvider.sources) as Sources).sources.length,
             shrinkWrap: true,
           ),
@@ -172,8 +181,16 @@ class _ExplorePageState extends State<ExplorePage> {
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
-            itemBuilder: (context, position ) => SourcesView((exploreProvider.popular as HeadlineModel).articles[position].source.name,
-                (exploreProvider.popular as HeadlineModel).articles[position].source.name),
+            itemBuilder: (context, position ) => InkWell(
+              onTap: (){
+                var headline = (exploreProvider.popular as HeadlineModel).articles[position];
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => WebPageView(url: headline.url, sourceName: headline.source.name,))
+                );
+              },
+              child: SourcesView((exploreProvider.popular as HeadlineModel).articles[position].source.name,
+                  (exploreProvider.popular as HeadlineModel).articles[position].source.name),
+            ),
 // HeadlineView((exploreProvider.popular as HeadlineModel).articles[position]),
             itemCount: ((exploreProvider.popular as HeadlineModel).articles.length),
             shrinkWrap: true,
@@ -181,16 +198,6 @@ class _ExplorePageState extends State<ExplorePage> {
         );
       }
     }
-  }
-
-  List<Widget> loadWidgets(List<Source> sourceList){
-    List<Widget> widgets = [];
-    for(Source source in sourceList){
-      var sourceView = SourcesView(source.name, source.description);
-      widgets.add(sourceView);
-    }
-
-    return widgets;
   }
 
   String capitalize(String str){

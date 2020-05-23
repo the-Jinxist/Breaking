@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/pages/WebPageView.dart';
 import 'package:news_app/provider/HeadlineProvider.dart';
 import 'package:news_app/utils.dart';
 import 'package:news_app/views/CategoryView.dart';
@@ -86,7 +87,15 @@ class _HeadlinePageState extends State<HeadlinePage> {
         return ListView.builder(
             scrollDirection: Axis.vertical,
             physics: ClampingScrollPhysics(),
-            itemBuilder: (context, position) => HeadlineView(provider.getHeadline().articles[position]),
+            itemBuilder: (context, position) => InkWell(
+              onTap: (){
+                var headline = provider.getHeadline().articles[position];
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => WebPageView(url: headline.url, sourceName: headline.source.name,))
+                );
+              },
+              child: HeadlineView(provider.getHeadline().articles[position])
+            ),
             itemCount: provider.getHeadline().articles.length);
       }else{
         return Container(

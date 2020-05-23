@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/api/NewsApi.dart';
 import 'package:news_app/model/HeadlineModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:news_app/pages/WebPageView.dart';
 import 'dart:convert';
 import 'package:news_app/utils.dart';
 import 'package:news_app/views/HeadlineView.dart';
@@ -77,7 +78,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     print("Categories Page: Data dey!");
                     return ListView.builder(
                       itemBuilder: (context, position) =>
-                          HeadlineView(headlineModel.articles[position]),
+                        InkWell(
+                          onTap: (){
+                            var headline = headlineModel.articles[position];
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => WebPageView(url: headline.url, sourceName: headline.source.name,))
+                            );
+                          },
+                          child: HeadlineView(headlineModel.articles[position])
+                        ),
                       itemCount: headlineModel.articles.length,
                     );
                   } else {

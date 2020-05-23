@@ -21,7 +21,7 @@ dependencies:
   provider:
   shared_preferences:
   webview_flutter: 0.2.0
-  curved_navigation_bar: ^0.3.2
+  bottom_navy_bar: ^5.4.0
   http:
   flutter:
     sdk: flutter
