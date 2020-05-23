@@ -31,7 +31,8 @@ class _HomePageState extends State<HomePage> {
           });
         },
         index: 0,
-        backgroundColor: Colors.green,
+        buttonBackgroundColor: Colors.green,
+        backgroundColor: Colors.white,
       )
 
 //      BottomNavigationBar(items: [

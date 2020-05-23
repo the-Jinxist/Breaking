@@ -20,7 +20,7 @@ class _SearchPageState extends State<SearchPage> {
 
   GlobalKey<FormState> formKey = GlobalKey();
 
-  String searchQuery = "";
+  String searchQuery;
 
   @override
   void initState() {
@@ -34,130 +34,151 @@ class _SearchPageState extends State<SearchPage> {
 
 //    showSearch(context: context, delegate: NewsSearch(states, searchQuery));
 
-    return Scaffold(
-      appBar: PreferredSize(
-          child: Container(
-            padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
-            color: Colors.white,
-            child: Row(
-              children: <Widget>[
-                Form(
-                  key: formKey,
-                  child: Row(
-                    children: <Widget>[
-                      TextFormField(
-                        validator: (string){
-                          if(string.trim().isEmpty){
-                            setState(() {
-                              searchQuery = string.trim();
-                            });
-                            return "";
-                          }else{
-                            return null;
-                          }
-                        },
-                        style: TextStyle(
-                          fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
-                        ),
-                        decoration: InputDecoration(
-                          hintText: "Type in your search query",
-                          helperStyle: TextStyle(
-                              fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.grey
-                          ),
-                          filled: true,
-                          focusColor: Colors.white,
-                          fillColor: Colors.white,
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.search, color: Colors.black, size: 20,),
-                        onPressed: (){
-                          bool isValidated = formKey.currentState.validate();
-                          if (isValidated) {
-                            setState(() {
-                              states = LoadingStates.Loading;
-                            });
-                          }
-                        }
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          preferredSize: Size.fromHeight(70)),
-      body: Container(
-        height: double.maxFinite,
-        color: Colors.white,
-        child: states == LoadingStates.Idle ? Center(
-          child: Column(
-            children: <Widget>[
-              Icon(Icons.search, size: 40, color: Colors.green,),
-              SizedBox(height: 5,),
-              Text("Type in your query and find news on it!",
-                style: TextStyle(
-                  fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
-                ),
-              ),
-            ],
-          )
-        ): states == LoadingStates.Loading ? Center(
-          child: FutureBuilder(
-            future: startSearchQuery(searchQuery),
-            builder: (context, snapshot){
-              if(snapshot.hasData){
-                var headlineModel = snapshot.data as HeadlineModel;
-                return ListView.builder(
-                  itemCount: headlineModel.articles.length,
-                  physics: ClampingScrollPhysics(),
-                  itemBuilder: (context, position){
-                    return HeadlineView(headlineModel.articles[position]);
-                  }
-                );
-              }else if(snapshot.hasError){
-                return Flex(
-                  direction: Axis.vertical,
-                  children: <Widget>[
-                    Expanded(child:
-                      Center(
-                          child: Column(
-                            children: <Widget>[
-                              Icon(Icons.error, size: 40, color: Colors.red,),
-                              SizedBox(height: 5,),
-                              Text("Sorry an error occurred: ${snapshot.error.toString()}",
-                                style: TextStyle(
-                                    fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
-                                ),
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+            child: Container(
+              padding: EdgeInsets.fromLTRB(16, 10, 5, 10),
+              color: Colors.white,
+              child: Row(
+                children: <Widget>[
+                  Form(
+                    key: formKey,
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 310,
+                          child: TextFormField(
+                            onFieldSubmitted: (string){
+                              if(string.isNotEmpty){
+                                setState(() {
+                                  searchQuery = string.trim();
+                                  states = LoadingStates.Loading;
+                                });
+                              }
+                            },
+                            textInputAction: TextInputAction.search,
+                            autofocus: true,
+                            validator: (string){
+                              if(string.trim().isEmpty){
+                                return "";
+                              }else{
+                                setState(() {
+                                  searchQuery = string.trim();
+                                });
+                                return null;
+                              }
+                            },
+                            style: TextStyle(
+                              fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
+                            ),
+                            decoration: InputDecoration(
+                              hintText: "Type in your search query",
+                              hintStyle: TextStyle(
+                                  fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.grey
                               ),
-                            ],
-                          )
-                      )
-                    )
-                  ],
-                );;
-              }else{
-                return Flex(
-                  direction: Axis.vertical,
-                  children: <Widget>[
-                    Expanded(child:
-                      Center(
-                          child: CircularProgressIndicator()
-                      )
-                    )
-                  ],
-                );
-              }
-            }
-          ),
-        ): Container(),
-      ),
+                              filled: true,
+                              focusColor: Colors.white,
+                              fillColor: Colors.white,
 
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          child: IconButton(
+                            icon: Icon(Icons.search, color: Colors.black, size: 20,),
+                            onPressed: (){
+                              bool isValidated = formKey.currentState.validate();
+                              if (isValidated) {
+                                setState(() {
+                                  states = LoadingStates.Loading;
+                                });
+                              }
+                            }
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            preferredSize: Size.fromHeight(70)),
+        body: Container(
+          height: double.maxFinite,
+          color: Colors.white,
+          child: states == LoadingStates.Idle ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Icon(Icons.search, size: 40, color: Colors.green,),
+                SizedBox(height: 5,),
+                Text("Type in your query and find news on it!",
+                  style: TextStyle(
+                    fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
+                  ),
+                ),
+              ],
+            )
+          ): states == LoadingStates.Loading ? Center(
+            child: FutureBuilder(
+              future: startSearchQuery(searchQuery),
+              builder: (context, snapshot){
+                if(snapshot.hasData){
+                  var headlineModel = snapshot.data as HeadlineModel;
+                  return ListView.builder(
+                    itemCount: headlineModel.articles.length,
+                    physics: ClampingScrollPhysics(),
+                    itemBuilder: (context, position){
+                      return HeadlineView(headlineModel.articles[position]);
+                    }
+                  );
+                }else if(snapshot.hasError){
+                  return Flex(
+                    direction: Axis.vertical,
+                    children: <Widget>[
+                      Expanded(child:
+                        Center(
+                            child: Column(
+                              children: <Widget>[
+                                Icon(Icons.error, size: 40, color: Colors.red,),
+                                SizedBox(height: 5,),
+                                Text("Sorry an error occurred: ${snapshot.error.toString()}",
+                                  style: TextStyle(
+                                      fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
+                                  ),
+                                ),
+                              ],
+                            )
+                        )
+                      )
+                    ],
+                  );;
+                }else{
+                  return Flex(
+                    direction: Axis.vertical,
+                    children: <Widget>[
+                      Expanded(child:
+                        Center(
+                            child: CircularProgressIndicator()
+                        )
+                      )
+                    ],
+                  );
+                }
+              }
+            ),
+          ): Container(),
+        ),
+
+      ),
     );
   }
 
   Future<HeadlineModel> startSearchQuery(String query) async {
     print("Loading Models");
+    print(query);
     var response = await NewsApi().getSearchResults(query);
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);

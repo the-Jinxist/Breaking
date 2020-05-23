@@ -15,7 +15,7 @@ class NewsApi{
   }
   
   Future<http.Response> getPopularPosts(){
-    return http.get(Utils.getBaseApiUrl()+"everything?q=covid&sortBy=popularity"+Utils.addApiKeyParameter());
+    return http.get(Utils.getBaseApiUrl()+"everything?q=corona&sortBy=popularity"+Utils.addApiKeyParameter());
   }
 
   Future<http.Response> getCategories(String categoryName){
@@ -23,7 +23,7 @@ class NewsApi{
   }
 
   Future<http.Response> getSearchResults(String searchQuery){
-    return http.get("http://newsapi.org/v2/everything?q=$searchQuery${Utils.addApiKeyParameter()}");
+    return http.get(Utils.getBaseApiUrl()+"everything?q=$searchQuery&sortBy=popularity"+Utils.addApiKeyParameter());
   }
 
 }
