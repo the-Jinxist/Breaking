@@ -36,7 +36,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80),
           child: Container(
-            color: Colors.white,
+            color: Theme.of(context).backgroundColor,
             child: Padding(
               padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
               child: Row(
@@ -44,20 +44,16 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: Icon(Icons.arrow_back, color: Colors.black, size: 27,),
+                    child: Icon(Icons.arrow_back, size: 27,),
                   ),
                   SizedBox(width: 20,),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Category", style: new TextStyle(
-                          fontSize: 15.0, fontFamily: Utils.getFontName(), color: Colors.black, fontWeight: FontWeight.bold /* #10db5d */
+                      Text("Category", style: Theme.of(context).textTheme.display2,
                       ),
-                      ),
-                      Text("${capitalize(categoryName)}", style: new TextStyle(
-                          fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.black /* #10db5d */
-                      ),
+                      Text("${capitalize(categoryName)}", style: Theme.of(context).textTheme.title
                       ),
 
                     ],
@@ -68,7 +64,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
           ),
         ),
         body: Container(
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           child: FutureBuilder(
               future: getModels(categoryName),
               builder: (context, snapshot){
@@ -100,7 +96,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                               children: <Widget>[
                                 Icon(Icons.error, size: 40, color: Colors.red,),
                                 SizedBox(height: 4),
-                                Text("Please check your internet connection", style: TextStyle(color: Colors.black, fontFamily: Utils.getFontName(), fontSize: 17),)
+                                Text("Please check your internet connection", style: Theme.of(context).textTheme.display2,)
                               ],
                             )
                         )
@@ -120,7 +116,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             children: <Widget>[
                               Icon(Icons.error, size: 40, color: Colors.red,),
                               SizedBox(height: 4),
-                              Text("Please check your internet connection", style: TextStyle(color: Colors.black, fontFamily: Utils.getFontName(), fontSize: 17),)
+                              Text("Please check your internet connection", style: Theme.of(context).textTheme.display2,)
                             ],
                           )
                       )

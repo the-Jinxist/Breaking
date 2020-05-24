@@ -25,9 +25,9 @@ class SourcesView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(sourceName, style: TextStyle(color: Colors.white, fontFamily: Utils.getBoldFont(), fontSize: 17), ),
+                Text(sourceName, style: TextStyle(color: Colors.white, fontFamily: Utils.getBoldFont(), fontSize: 20), ),
                 Text(sourceDescription, style:
-                TextStyle(color: Colors.white, fontFamily: Utils.getFontName(), fontSize: 14,), maxLines: 3, textAlign: TextAlign.center,
+                TextStyle(color: Colors.white, fontFamily: Utils.getFontName(), fontSize: 12,), maxLines: 3, textAlign: TextAlign.center,
 
                 ),
               ],

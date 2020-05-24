@@ -2,40 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:news_app/pages/HomePage.dart';
 import 'package:news_app/provider/HeadlineProvider.dart';
 import 'package:news_app/provider/ExploreProvider.dart';
+import 'package:news_app/provider/ThemeProvider.dart';
 import 'package:news_app/utils.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(OnBoardingAppContainer());
+void main() => runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(
+              value: HeadlineProvider()),
+          ChangeNotifierProvider.value(
+              value: ExploreProvider()),
+          ChangeNotifierProvider.value(
+              value: ThemeProvider()),
+        ],
+        child: OnBoardingAppContainer(),
+      )
+    );
 
 class OnBoardingAppContainer extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(
-        value: HeadlineProvider()),
-        ChangeNotifierProvider.value(
-            value: ExploreProvider()),
-      ],
-      child: MaterialApp(
-        title: "NewsApp!",
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          fontFamily: Utils.getFontName(),
-          backgroundColor: Colors.white,
-          primaryColorLight: Colors.white,
-          primaryColor: Colors.white,
-          splashColor: Colors.green,
-          primaryColorDark: Colors.grey,
-          accentColor: Colors.amber
-        ),
-        debugShowMaterialGrid: false,
-        home: HomePage(),
-      ),
+
+    var themeProvider = Provider.of<ThemeProvider>(context);
+
+    return MaterialApp(
+      title: "NewsApp!",
+      debugShowCheckedModeBanner: false,
+      theme: themeProvider.theme,
+      debugShowMaterialGrid: false,
+      home: HomePage(),
     );
   }
 }
-
 
 
 class OnBoardingPage extends StatefulWidget {

@@ -31,7 +31,7 @@ class _ExplorePageState extends State<ExplorePage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80),
           child: Container(
-            color: Colors.white,
+            color: Theme.of(context).backgroundColor,
             child: Padding(
               padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
               child: Row(
@@ -40,13 +40,9 @@ class _ExplorePageState extends State<ExplorePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Explore", style: new TextStyle(
-                          fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.black /* #10db5d */
+                      Text("Explore", style: Theme.of(context).textTheme.title
                       ),
-                      ),
-                      Text("Find news from all categories!", style: new TextStyle(
-                          fontSize: 15.0, fontFamily: Utils.getFontName(), color: Colors.black /* #10db5d */
-                      ),
+                      Text("Find news from all categories!", style: Theme.of(context).textTheme.display2
                       ),
 
                     ],
@@ -59,7 +55,7 @@ class _ExplorePageState extends State<ExplorePage> {
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-            color: Colors.white,
+            color: Theme.of(context).backgroundColor,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,6 +67,7 @@ class _ExplorePageState extends State<ExplorePage> {
                ),
                 Container(
                   height: 50,
+                  color: Theme.of(context).backgroundColor,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, position ) =>
@@ -82,16 +79,12 @@ class _ExplorePageState extends State<ExplorePage> {
                   ),
                 ),
                SizedBox(height: 10,),
-               Text("Sources", style: new TextStyle(
-                   fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
-                ),
+               Text("Sources", style: Theme.of(context).textTheme.display1
                ),
                SizedBox(height: 2,),
                loadingSourcesAccordingToProviderState(exploreProvider),
                SizedBox(height: 10,),
-               Text("Popular", style: new TextStyle(
-                   fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
-                ),
+               Text("Popular", style:Theme.of(context).textTheme.display1
                ),
                 loadingPopularAccordingToProviderState(exploreProvider)
               ],
@@ -114,6 +107,7 @@ class _ExplorePageState extends State<ExplorePage> {
       if(sourceProvider.hasError){
         return Container(
           height: 100,
+          color: Theme.of(context).backgroundColor,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -121,7 +115,7 @@ class _ExplorePageState extends State<ExplorePage> {
               children: <Widget>[
                 Icon(Icons.error, size: 40, color: Colors.red,),
                 SizedBox(height: 2,),
-                Text("Sorry, an error occured!", style: TextStyle(fontSize: 15, fontFamily: Utils.getFontName(), color: Colors.black),)
+                Text("Sorry, an error occured!", style: Theme.of(context).textTheme.display2,)
               ],
             ),
           )
@@ -129,6 +123,7 @@ class _ExplorePageState extends State<ExplorePage> {
       }else{
         return Container(
           height: 100,
+          color: Theme.of(context).backgroundColor,
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
@@ -154,6 +149,7 @@ class _ExplorePageState extends State<ExplorePage> {
     if(exploreProvider.popularIsLoading){
       return Container(
         height: 350,
+        color: Theme.of(context).backgroundColor,
         child: Center(
           child: CircularProgressIndicator(),
         ) ,
@@ -162,6 +158,7 @@ class _ExplorePageState extends State<ExplorePage> {
       if(exploreProvider.popularHasError){
         return Container(
             height: 350,
+            color: Theme.of(context).backgroundColor,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -169,7 +166,7 @@ class _ExplorePageState extends State<ExplorePage> {
                 children: <Widget>[
                   Icon(Icons.error, size: 40, color: Colors.red,),
                   SizedBox(height: 2,),
-                  Text("Sorry, an error occured!", style: TextStyle(fontSize: 15, fontFamily: Utils.getFontName(), color: Colors.black),)
+                  Text("Sorry, an error occured!", style: Theme.of(context).textTheme.display2,)
                 ],
               ),
             )
@@ -177,6 +174,7 @@ class _ExplorePageState extends State<ExplorePage> {
       }else{
         return Container(
           height: 350,
+          color: Theme.of(context).backgroundColor,
           width: double.maxFinite,
           child: ListView.builder(
             physics: BouncingScrollPhysics(),

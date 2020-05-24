@@ -4,6 +4,7 @@ import 'package:news_app/pages/HeadlinePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:news_app/pages/ExplorePage.dart';
 import 'package:news_app/pages/SearchPage.dart';
+import 'package:news_app/pages/SettingsPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  var fragmentList = [HeadlinePage(), ExplorePage(), SearchPage()];
+  var fragmentList = [HeadlinePage(), ExplorePage(), SearchPage(), SettingsPage()];
   var currentIndex = 0;
 
   @override
@@ -20,6 +21,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: fragmentList[currentIndex],
       bottomNavigationBar: BottomNavyBar(
+        backgroundColor: Theme.of(context).backgroundColor,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         selectedIndex: currentIndex,
         onItemSelected: (position){
@@ -30,52 +32,27 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavyBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text('Home', style: Theme.of(context).textTheme.display2,),
             activeColor: Colors.green,
           ),
           BottomNavyBarItem(
               icon: Icon(Icons.explore),
-              title: Text('Users'),
+              title: Text('Explore', style: Theme.of(context).textTheme.display2,),
               activeColor: Colors.green
           ),
           BottomNavyBarItem(
               icon: Icon(Icons.search),
-              title: Text('Settings'),
+              title: Text('Search', style: Theme.of(context).textTheme.display2),
+              activeColor: Colors.green
+          ),
+          BottomNavyBarItem(
+              icon: Icon(Icons.settings),
+              title: Text('Settings', style: Theme.of(context).textTheme.display2),
               activeColor: Colors.green
           ),
         ],
       ),
 
-//      CurvedNavigationBar(
-//        items: [
-//          Icon(CupertinoIcons.home, size: 30),
-//          Icon(CupertinoIcons.collections, size: 30),
-//          Icon(CupertinoIcons.search, size: 30),
-//        ],
-//        onTap: (position){
-//          setState(() {
-//            currentIndex = position;
-//          });
-//        },
-//        index: 0,
-//        buttonBackgroundColor: Colors.green,
-//        backgroundColor: Colors.white,
-//      )
-
-//      BottomNavigationBar(items: [
-//          BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text("Home")),
-//          BottomNavigationBarItem(icon: Icon(CupertinoIcons.collections), title: Text("Explore")),
-//        ],
-//        backgroundColor: Colors.white,
-//        currentIndex: currentIndex,
-//        unselectedItemColor: Colors.black,
-//        selectedItemColor: Colors.green,
-//        onTap: (index){
-//        setState(() {
-//          currentIndex = index;
-//        });
-//        },
-//      ),
     );
   }
 }

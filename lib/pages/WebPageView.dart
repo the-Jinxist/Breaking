@@ -20,13 +20,13 @@ class _WebPageViewState extends State<WebPageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("${widget.sourceName}"),
+        backgroundColor: Theme.of(context).backgroundColor,
+        title: Text("${widget.sourceName}", style: Theme.of(context).textTheme.title,),
         leading: IconButton(
           onPressed: (){
-
+            Navigator.of(context).pop();
           },
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, ),
           color: Colors.black,
         ),
         actions: <Widget>[
@@ -34,28 +34,60 @@ class _WebPageViewState extends State<WebPageView> {
             onPressed: (){
               if(mController != null) mController.reload();
             },
-            icon: Icon(Icons.refresh, color: Colors.black),
+            icon: Icon(Icons.refresh, ),
             color: Colors.black,
           ),
 
           IconButton(
             disabledColor: Colors.grey,
             onPressed: (){
-              if(mController != null) mController.reload();
+              if(mController != null){
+                mController.canGoBack().then((bool){
+                  if(bool){
+                    mController.goBack();
+                  }
+                });
+              }
             },
             enableFeedback: false,
-            icon: Icon(Icons.forward, color: Colors.black),
+            icon: Icon(Icons.keyboard_arrow_right, ),
+            color: Colors.black,
+          ),
+
+          IconButton(
+            disabledColor: Colors.grey,
+            onPressed: (){
+              if(mController != null){
+                mController.canGoForward().then((bool){
+                  if(bool){
+                    mController.goForward();
+                  }
+                });
+              }
+            },
+            enableFeedback: false,
+            icon: Icon(Icons.keyboard_arrow_left, ),
             color: Colors.black,
           ),
         ],
       ),
-      body: WebView(
-        initialUrl: widget.url,
-        onWebViewCreated: (controller){
-          setState(() {
-            mController = controller;
-          });
-        },
+      body: Stack(
+        children: <Widget>[
+          Flex(
+            direction: Axis.vertical,
+              children: <Widget>[
+                Expanded(child: Center(child: CircularProgressIndicator()))
+              ],
+          ),
+          WebView(
+            initialUrl: widget.url,
+            onWebViewCreated: (controller){
+              setState(() {
+                mController = controller;
+              });
+            },
+          )
+        ],
       ),
     );
   }

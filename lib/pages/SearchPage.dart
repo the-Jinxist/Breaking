@@ -40,7 +40,7 @@ class _SearchPageState extends State<SearchPage> {
         appBar: PreferredSize(
             child: Container(
               padding: EdgeInsets.fromLTRB(16, 10, 5, 10),
-              color: Colors.white,
+              color: Theme.of(context).backgroundColor,
               child: Row(
                 children: <Widget>[
                   Form(
@@ -70,13 +70,11 @@ class _SearchPageState extends State<SearchPage> {
                                 return null;
                               }
                             },
-                            style: TextStyle(
-                              fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
-                            ),
+                            style: Theme.of(context).textTheme.display2,
                             decoration: InputDecoration(
                               hintText: "Type in your search query",
                               hintStyle: TextStyle(
-                                  fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.grey
+                                  fontFamily: Utils.getFontName(), fontSize: 15, color: Colors.grey
                               ),
                               filled: true,
                               focusColor: Colors.white,
@@ -87,7 +85,7 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                         InkWell(
                           child: IconButton(
-                            icon: Icon(Icons.search, color: Colors.black, size: 20,),
+                            icon: Icon(Icons.search, size: 20,),
                             onPressed: (){
                               bool isValidated = formKey.currentState.validate();
                               if (isValidated) {
@@ -107,7 +105,7 @@ class _SearchPageState extends State<SearchPage> {
             preferredSize: Size.fromHeight(70)),
         body: Container(
           height: double.maxFinite,
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           child: states == LoadingStates.Idle ? Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -116,9 +114,7 @@ class _SearchPageState extends State<SearchPage> {
                 Icon(Icons.search, size: 40, color: Colors.green,),
                 SizedBox(height: 5,),
                 Text("Type in your query and find news on it!",
-                  style: TextStyle(
-                    fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
-                  ),
+                  style: Theme.of(context).textTheme.display2
                 ),
               ],
             )
@@ -155,9 +151,7 @@ class _SearchPageState extends State<SearchPage> {
                                 Icon(Icons.error, size: 40, color: Colors.red,),
                                 SizedBox(height: 5,),
                                 Text("Sorry an error occurred: ${snapshot.error.toString()}",
-                                  style: TextStyle(
-                                      fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
-                                  ),
+                                  style: Theme.of(context).textTheme.display2
                                 ),
                               ],
                             )
@@ -200,65 +194,4 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 }
-
-//
-//class NewsSearch extends SearchDelegate<String>{
-//
-//  LoadingStates loadingStates;
-//  String searchQuery;
-//
-//  NewsSearch(this.loadingStates, this.searchQuery);
-//
-//  @override
-//  Widget buildSuggestions(BuildContext context) {
-//    return FutureBuilder(
-//      future: CacheRepo().getSearchQueries(),
-//      builder: (context, snapshot){
-//        var searchQuery = snapshot.data as List<String>;
-//        return ListView.builder(
-//          itemBuilder: (context, position){
-//            return ListTile(
-//              onTap: (){
-//                //Apply same functionality in
-//              },
-//              title: Text(searchQuery[position]),
-//              leading: Icon(Icons.search, size: 17, color: Colors.black,),
-//            ) ;
-//          }
-//        );
-//      },
-//    );
-//  }
-//
-//  @override
-//  List<Widget> buildActions(BuildContext context) {
-//    return [
-//      GestureDetector(
-//        onTap: (){
-//          query = "";
-//          loadingStates = LoadingStates.Idle;
-//        },
-//        child: Icon(Icons.search, size: 20, color: Colors.black,)
-//      )
-//    ];
-//  }
-//
-//  @override
-//  Widget buildLeading(BuildContext context) {
-//    return GestureDetector(
-//          onTap: (){
-//            this.close(context, '');
-//            Navigator.of(context).pop();
-//          },
-//          child: Icon(Icons.arrow_back, size: 20, color: Colors.black,)
-//      );
-//  }
-//
-//  @override
-//  Widget buildResults(BuildContext context) {
-//
-//  }
-//
-//}
-
 

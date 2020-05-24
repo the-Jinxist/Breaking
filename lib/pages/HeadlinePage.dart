@@ -32,7 +32,7 @@ class _HeadlinePageState extends State<HeadlinePage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(80),
           child: Container(
-            color: Colors.white,
+            color: Theme.of(context).backgroundColor,
             child: Padding(
               padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
               child: Row(
@@ -41,13 +41,9 @@ class _HeadlinePageState extends State<HeadlinePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Headlines!", style: new TextStyle(
-                          fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.black /* #10db5d */
-                        ),
+                      Text("Headlines!", style:Theme.of(context).textTheme.title
                       ),
-                      Text("All the top headlines from all over the world", style: new TextStyle(
-                          fontSize: 15.0, fontFamily: Utils.getFontName(), color: Colors.black /* #10db5d */
-                      ),
+                      Text("All the top headlines from all over the world", style: Theme.of(context).textTheme.display2
                       ),
 
                     ],
@@ -56,7 +52,7 @@ class _HeadlinePageState extends State<HeadlinePage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.search, color: Colors.black, size: 27,)
+                      Icon(Icons.search, size: 27,)
                     ],
                   ))
                 ],
@@ -66,7 +62,7 @@ class _HeadlinePageState extends State<HeadlinePage> {
         ),
         body: Container(
           padding: EdgeInsets.only( right: 10, left: 10),
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           child: loadAccordingToProviderState(provider),
         ),
       ),
@@ -101,6 +97,7 @@ class _HeadlinePageState extends State<HeadlinePage> {
         return Container(
           height: double.maxFinite,
           width: double.maxFinite,
+          color: Theme.of(context).backgroundColor,
           child: Center(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -112,9 +109,7 @@ class _HeadlinePageState extends State<HeadlinePage> {
                   SizedBox(height: 10,),
                   Row(
                     children: <Widget>[
-                      Text("Check your internet connection and try again", style: TextStyle(
-                          fontFamily: Utils.getFontName(), fontSize: 17, color: Colors.black
-                      ),
+                      Text("Check your internet connection and try again", style: Theme.of(context).textTheme.display2
                       ),
                       SizedBox(width: 5,),
                     ],

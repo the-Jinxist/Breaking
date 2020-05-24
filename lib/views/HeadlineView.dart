@@ -13,6 +13,7 @@ class HeadlineView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
+      color: Theme.of(context).backgroundColor,
       clipBehavior: Clip.antiAlias,
       margin: EdgeInsets.all(7),
       child: Container(
@@ -26,11 +27,11 @@ class HeadlineView extends StatelessWidget {
             SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Text(headlineArticle.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: Utils.getBoldFont(), fontSize: 20, color: Colors.black),),
+              child: Text(headlineArticle.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.display1,),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: Text(headlineArticle.description, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: Utils.getFontName(), fontSize: 12, color: Colors.black),),
+              child: Text(headlineArticle.description, maxLines: 3, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.display3,),
             ),
             SizedBox(height: 3,),
             Expanded(child: Row(
@@ -38,7 +39,7 @@ class HeadlineView extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                  child: Text(headlineArticle.source.name, style: TextStyle(fontFamily: Utils.getBoldFont(), fontSize: 10, color: Colors.green)),
+                  child: Text(headlineArticle.source.name, style: Theme.of(context).textTheme.display4),
                 ),
               ],
             )
