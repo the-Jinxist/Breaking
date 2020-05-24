@@ -11,18 +11,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
 
-  var bool;
-  @override
-  void initState() {
-    prefs.getCurrentTheme().then((string){
-      if(string == Utils.LIGHT_THEME_STRING()){
-        bool = true;
-      }else{
-        bool = false;
-      }
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +28,27 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text("Light Theme", style: Theme.of(context).textTheme.title,),
-            Checkbox(value: bool, onChanged: (bool){
-                if(bool){
+            Text("${themeProvider.theme == Utils.getDarkTheme() ? "Dark Theme" : "Light Theme"}", style: Theme.of(context).textTheme.display1,),
+            InkWell(
+              onTap: (){
+                if(themeProvider.theme == Utils.getDarkTheme()){
                   themeProvider.theme = Utils.getLightTheme();
-                  prefs.setCurrentTheme(Utils.LIGHT_THEME_STRING());
                 }else{
-                  themeProvider.theme = Utils.getLightTheme();
-                  prefs.setCurrentTheme(Utils.LIGHT_THEME_STRING());
+                  themeProvider.theme = Utils.getDarkTheme();
                 }
               },
-            )
+              child: Card(
+               color: Colors.green,
+               child: Container(
+                 height: 100,
+                 width: 200,
+                 child: Center(
+                   child: Text("Switch Theme", style: TextStyle(
+                     color: Colors.white, fontSize: 15
+                   ))),
+                 ),
+               ),
+            ),
           ],
         ),
       ),

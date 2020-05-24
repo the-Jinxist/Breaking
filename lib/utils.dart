@@ -70,11 +70,11 @@ class Utils{
   static ThemeData getDarkTheme(){
     return ThemeData(
         fontFamily: Utils.getFontName(),
-        backgroundColor: Colors.black45,
-        primaryColorLight: Colors.black45,
-        primaryColor: Colors.black45,
+        backgroundColor: Colors.black,
+        primaryColorLight: Colors.black,
+        primaryColor: Colors.black,
         splashColor: Colors.green,
-        primaryColorDark: Colors.black,
+        primaryColorDark: Colors.grey,
         accentColor: Colors.amber,
         iconTheme: IconThemeData(
           color: Colors.white,
@@ -85,13 +85,16 @@ class Utils{
               fontSize: 30.0, fontFamily: Utils.getBoldFont(), color: Colors.white /* #10db5d */
           ),
           display1:  new TextStyle(
-              fontSize: 15.0, fontFamily: Utils.getFontName(), color: Colors.white /* #10db5d */
+              fontSize: 20.0, fontFamily: Utils.getFontName(), color: Colors.white /* #10db5d */
           ),
           display2:  new TextStyle(
-              fontSize: 20.0, fontFamily: Utils.getFontName(), color: Colors.white /* #10db5d */
+              fontSize: 15.0, fontFamily: Utils.getFontName(), color: Colors.white /* #10db5d */
           ),
           display3:  new TextStyle(
               fontSize: 12.0, fontFamily: Utils.getFontName(), color: Colors.white /* #10db5d */
+          ),
+          display4:  new TextStyle(
+              fontSize: 10.0, fontFamily: Utils.getFontName(), color: Colors.black /* #10db5d */
           ),
         )
     );

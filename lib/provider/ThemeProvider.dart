@@ -8,11 +8,16 @@ class ThemeProvider extends ChangeNotifier{
 
   ThemeProvider(){
     preferences.getCurrentTheme().then((string){
-      if(string == Utils.DARK_THEME_STRING()){
-        _theme = Utils.getDarkTheme();
+      if(string == Utils.LIGHT_THEME_STRING() || string == null){
+        theme = Utils.getLightTheme();
+        print('From Provider: $theme');
+//        theme = Utils.getLightTheme();
+//        preferences.setCurrentTheme(Utils.LIGHT_THEME_STRING());
         notifyListeners();
       }else{
-        _theme = Utils.getDarkTheme();
+        theme = Utils.getDarkTheme();
+//        theme = Utils.getDarkTheme();
+//        preferences.setCurrentTheme(Utils.DARK_THEME_STRING());
         notifyListeners();
       }
     });
@@ -22,6 +27,11 @@ class ThemeProvider extends ChangeNotifier{
 
   set theme(ThemeData themeData){
     _theme = themeData;
+    if(_theme == Utils.getLightTheme()){
+      preferences.setCurrentTheme(Utils.LIGHT_THEME_STRING());
+    }else{
+      preferences.setCurrentTheme(Utils.DARK_THEME_STRING());
+    }
     notifyListeners();
   }
 

@@ -4,6 +4,7 @@ import 'package:news_app/provider/HeadlineProvider.dart';
 import 'package:news_app/provider/ExploreProvider.dart';
 import 'package:news_app/provider/ThemeProvider.dart';
 import 'package:news_app/utils.dart';
+import 'package:news_app/cache/PreferencesRepo.dart' as preferences;
 import 'package:provider/provider.dart';
 
 void main() => runApp(
@@ -26,11 +27,18 @@ class OnBoardingAppContainer extends StatelessWidget {
   Widget build(BuildContext context) {
 
     var themeProvider = Provider.of<ThemeProvider>(context);
+    print('From main: ${themeProvider.theme}');
+
+    preferences.getCurrentTheme().then((string){
+      if(string == Utils.LIGHT_THEME_STRING()){
+//        themeProvider.theme =
+      }
+    });
 
     return MaterialApp(
       title: "NewsApp!",
       debugShowCheckedModeBanner: false,
-      theme: themeProvider.theme,
+      theme: themeProvider.theme == null ? Utils.getLightTheme() : themeProvider.theme,
       debugShowMaterialGrid: false,
       home: HomePage(),
     );

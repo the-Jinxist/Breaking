@@ -21,13 +21,13 @@ class _WebPageViewState extends State<WebPageView> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).backgroundColor,
-        title: Text("${widget.sourceName}", style: Theme.of(context).textTheme.title,),
+        title: Text("${widget.sourceName}", style: Theme.of(context).textTheme.display1,),
         leading: IconButton(
           onPressed: (){
             Navigator.of(context).pop();
           },
           icon: Icon(Icons.arrow_back, ),
-          color: Colors.black,
+
         ),
         actions: <Widget>[
           IconButton(
@@ -35,7 +35,7 @@ class _WebPageViewState extends State<WebPageView> {
               if(mController != null) mController.reload();
             },
             icon: Icon(Icons.refresh, ),
-            color: Colors.black,
+
           ),
 
           IconButton(
@@ -51,7 +51,7 @@ class _WebPageViewState extends State<WebPageView> {
             },
             enableFeedback: false,
             icon: Icon(Icons.keyboard_arrow_right, ),
-            color: Colors.black,
+
           ),
 
           IconButton(
@@ -67,7 +67,7 @@ class _WebPageViewState extends State<WebPageView> {
             },
             enableFeedback: false,
             icon: Icon(Icons.keyboard_arrow_left, ),
-            color: Colors.black,
+
           ),
         ],
       ),

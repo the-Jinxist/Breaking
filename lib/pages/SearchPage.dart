@@ -77,8 +77,8 @@ class _SearchPageState extends State<SearchPage> {
                                   fontFamily: Utils.getFontName(), fontSize: 15, color: Colors.grey
                               ),
                               filled: true,
-                              focusColor: Colors.white,
-                              fillColor: Colors.white,
+                              focusColor: Theme.of(context).backgroundColor,
+                              fillColor: Theme.of(context).backgroundColor,
 
                             ),
                           ),
