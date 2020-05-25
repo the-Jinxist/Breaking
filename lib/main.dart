@@ -50,18 +50,16 @@ class OnBoardingAppContainer extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: themeProvider.theme == null ? Utils.getLightTheme() : themeProvider.theme,
       debugShowMaterialGrid: false,
-      home: OnBoardingPage()
-
-//      FutureBuilder(
-//        future: preferences.getFirstTime(),
-//        builder: (context, snapshot){
-//            if(snapshot.data == null){
-//              return OnBoardingPage();
-//            }else{
-//              return HomePage();
-//            }
-//          }
-//        ),
+      home: FutureBuilder(
+        future: preferences.getFirstTime(),
+        builder: (context, snapshot){
+            if(snapshot.data == null){
+              return OnBoardingPage();
+            }else{
+              return HomePage();
+            }
+          }
+        ),
     );
   }
 }
