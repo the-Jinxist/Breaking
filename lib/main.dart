@@ -46,7 +46,7 @@ class OnBoardingAppContainer extends StatelessWidget {
     }
 
     return MaterialApp(
-      title: "NewsApp!",
+      title: "Breaking!",
       debugShowCheckedModeBanner: false,
       theme: themeProvider.theme == null ? Utils.getLightTheme() : themeProvider.theme,
       debugShowMaterialGrid: false,
