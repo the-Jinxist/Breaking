@@ -52,6 +52,7 @@ flutter:
   - assets/images/happy_imageii.jpg
   - assets/images/blank_canvas.svg
   - assets/images/note.png
+  - assets/images/news_app_splash.png
   - assets/images/user.png
   - assets/images/trends_trans.png
   - assets/images/news_image_paceholder.png

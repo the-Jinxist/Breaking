@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/pages/HomePage.dart';
+import 'package:news_app/pages/SplashPage.dart';
 import 'package:news_app/provider/HeadlineProvider.dart';
 import 'package:news_app/provider/ExploreProvider.dart';
 import 'package:news_app/provider/ThemeProvider.dart';
@@ -30,36 +31,38 @@ class OnBoardingAppContainer extends StatelessWidget {
 
     var themeProvider = Provider.of<ThemeProvider>(context);
 
-    if(!hasLoaded){
-      preferences.getCurrentTheme().then((string){
-        if(string == Utils.LIGHT_THEME_STRING()){
-          themeProvider.theme =Utils.getLightTheme();
-          hasLoaded = true;
-        }else{
-          themeProvider.theme =Utils.getDarkTheme();
-          hasLoaded = true;
-        }
-      });
-
-      print('From main: ${themeProvider.theme}');
-
-    }
+//    if(!hasLoaded){
+//      preferences.getCurrentTheme().then((string){
+//        if(string == Utils.LIGHT_THEME_STRING()){
+//          themeProvider.theme =Utils.getLightTheme();
+//          hasLoaded = true;
+//        }else{
+//          themeProvider.theme =Utils.getDarkTheme();
+//          hasLoaded = true;
+//        }
+//      });
+//
+//      print('From main: ${themeProvider.theme}');
+//    }
 
     return MaterialApp(
+//      themeMode: themeProvider.theme == null ? ThemeMode.light: ThemeMode.dark,
       title: "Breaking!",
       debugShowCheckedModeBanner: false,
       theme: themeProvider.theme == null ? Utils.getLightTheme() : themeProvider.theme,
       debugShowMaterialGrid: false,
-      home: FutureBuilder(
-        future: preferences.getFirstTime(),
-        builder: (context, snapshot){
-            if(snapshot.data == null){
-              return OnBoardingPage();
-            }else{
-              return HomePage();
-            }
-          }
-        ),
+      home: SplashPage()
+
+//      FutureBuilder(
+//        future: preferences.getFirstTime(),
+//        builder: (context, snapshot){
+//            if(snapshot.data == null){
+//              return OnBoardingPage();
+//            }else{
+//              return HomePage();
+//            }
+//          }
+//        ),
     );
   }
 }
