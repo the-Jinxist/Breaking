@@ -26,7 +26,7 @@ class _WebPageViewState extends State<WebPageView> {
           onPressed: (){
             Navigator.of(context).pop();
           },
-          icon: Icon(Icons.arrow_back, ),
+          icon: Icon(Icons.close, ),
 
         ),
         actions: <Widget>[
@@ -50,7 +50,7 @@ class _WebPageViewState extends State<WebPageView> {
               }
             },
             enableFeedback: false,
-            icon: Icon(Icons.keyboard_arrow_right, ),
+            icon: Icon(Icons.keyboard_arrow_left, ),
 
           ),
 
@@ -66,7 +66,7 @@ class _WebPageViewState extends State<WebPageView> {
               }
             },
             enableFeedback: false,
-            icon: Icon(Icons.keyboard_arrow_left, ),
+            icon: Icon(Icons.keyboard_arrow_right, ),
 
           ),
         ],
@@ -81,6 +81,7 @@ class _WebPageViewState extends State<WebPageView> {
           ),
           WebView(
             initialUrl: widget.url,
+            javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated: (controller){
               setState(() {
                 mController = controller;

@@ -79,12 +79,16 @@ class _ExplorePageState extends State<ExplorePage> {
                   ),
                 ),
                SizedBox(height: 10,),
-               Text("Sources", style: Theme.of(context).textTheme.display1
+               Text("Sources", style: new TextStyle(
+                   fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
+               ),
                ),
                SizedBox(height: 2,),
                loadingSourcesAccordingToProviderState(exploreProvider),
                SizedBox(height: 10,),
-               Text("Popular", style:Theme.of(context).textTheme.display1
+               Text("Popular", style: new TextStyle(
+                   fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
+               ),
                ),
                 loadingPopularAccordingToProviderState(exploreProvider)
               ],

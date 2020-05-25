@@ -19,35 +19,42 @@ class _SettingsPageState extends State<SettingsPage> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: Text("Settings"),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 10, right: 10),
         height: double.maxFinite,
         color: Theme.of(context).backgroundColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text("${themeProvider.theme == Utils.getDarkTheme() ? "Dark Theme" : "Light Theme"}", style: Theme.of(context).textTheme.display1,),
-            InkWell(
-              onTap: (){
-                if(themeProvider.theme == Utils.getDarkTheme()){
-                  themeProvider.theme = Utils.getLightTheme();
-                }else{
-                  themeProvider.theme = Utils.getDarkTheme();
-                }
-              },
-              child: Card(
-               color: Colors.green,
-               child: Container(
-                 height: 100,
-                 width: 200,
-                 child: Center(
-                   child: Text("Switch Theme", style: TextStyle(
-                     color: Colors.white, fontSize: 15
-                   ))),
-                 ),
-               ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text("${themeProvider.theme == Utils.getDarkTheme() ? "Dark Theme" : "Light Theme"}", style: Theme.of(context).textTheme.display1,),
+                InkWell(
+                  onTap: (){
+                    if(themeProvider.theme == Utils.getDarkTheme()){
+                      themeProvider.theme = Utils.getLightTheme();
+                    }else{
+                      themeProvider.theme = Utils.getDarkTheme();
+                    }
+                  },
+                  child: Card(
+                    color: Colors.green,
+                    child: Container(
+                      height: 40,
+                      width: 150,
+                      child: Center(
+                          child: Text("Switch Theme", style: TextStyle(
+                              color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold
+                          ))),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

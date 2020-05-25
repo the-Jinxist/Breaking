@@ -6,23 +6,6 @@ class ThemeProvider extends ChangeNotifier{
 
   ThemeData _theme;
 
-  ThemeProvider(){
-    preferences.getCurrentTheme().then((string){
-      if(string == Utils.LIGHT_THEME_STRING() || string == null){
-        theme = Utils.getLightTheme();
-        print('From Provider: $theme');
-//        theme = Utils.getLightTheme();
-//        preferences.setCurrentTheme(Utils.LIGHT_THEME_STRING());
-        notifyListeners();
-      }else{
-        theme = Utils.getDarkTheme();
-//        theme = Utils.getDarkTheme();
-//        preferences.setCurrentTheme(Utils.DARK_THEME_STRING());
-        notifyListeners();
-      }
-    });
-  }
-
   get theme => _theme;
 
   set theme(ThemeData themeData){

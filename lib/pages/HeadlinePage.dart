@@ -48,13 +48,6 @@ class _HeadlinePageState extends State<HeadlinePage> {
 
                     ],
                   ),
-                  Expanded(child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.search, size: 27,)
-                    ],
-                  ))
                 ],
               ),
             ),
