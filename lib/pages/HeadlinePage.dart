@@ -27,37 +27,51 @@ class _HeadlinePageState extends State<HeadlinePage> {
     provider = Provider.of<HeadlineProvider>(context);
     provider.getHeadlines();
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: Container(
-            color: Theme.of(context).backgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
-              child: Row(
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("Headlines!", style:Theme.of(context).textTheme.title
-                      ),
-                      Text("All the top headlines from all over the world", style: Theme.of(context).textTheme.display2
-                      ),
-
-                    ],
-                  ),
-                ],
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 20,),
+            Text("Headlines!", style:Theme.of(context).textTheme.title
             ),
-          ),
+            Text("All the top headlines from all over the world", style: Theme.of(context).textTheme.display2
+            ),
+            SizedBox(height:20,)
+          ],
         ),
-        body: Container(
-          padding: EdgeInsets.only( right: 10, left: 10),
-          color: Theme.of(context).backgroundColor,
-          child: loadAccordingToProviderState(provider),
-        ),
+      ),
+
+//        PreferredSize(
+//          preferredSize: Size.fromHeight(80),
+//          child: Container(
+//            color: Theme.of(context).backgroundColor,
+//            child: Padding(
+//              padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
+//              child: Row(
+//                children: <Widget>[
+//                  Column(
+//                    mainAxisAlignment: MainAxisAlignment.start,
+//                    crossAxisAlignment: CrossAxisAlignment.start,
+//                    children: <Widget>[
+//                      Text("Headlines!", style:Theme.of(context).textTheme.title
+//                      ),
+//                      Text("All the top headlines from all over the world", style: Theme.of(context).textTheme.display2
+//                      ),
+//
+//                    ],
+//                  ),
+//                ],
+//              ),
+//            ),
+//          ),
+//        ),
+      body: Container(
+        padding: EdgeInsets.only( right: 10, left: 10),
+        color: Theme.of(context).backgroundColor,
+        child: loadAccordingToProviderState(provider),
       ),
     );
   }

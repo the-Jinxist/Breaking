@@ -63,6 +63,9 @@ class Utils{
           display4:  new TextStyle(
               fontSize: 10.0, fontFamily: Utils.getFontName(), color: Colors.black /* #10db5d */
           ),
+          caption: new TextStyle(
+              fontSize: 15.0, fontFamily: Utils.getFontName(), color: Colors.green /* #10db5d */
+          ),
         )
     );
   }
@@ -95,6 +98,9 @@ class Utils{
           ),
           display4:  new TextStyle(
               fontSize: 10.0, fontFamily: Utils.getFontName(), color: Colors.black /* #10db5d */
+          ),
+          caption: new TextStyle(
+              fontSize: 15.0, fontFamily: Utils.getFontName(), color: Colors.green, fontWeight: FontWeight.bold /* #10db5d */
           ),
         )
     );

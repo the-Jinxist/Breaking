@@ -26,73 +26,62 @@ class _ExplorePageState extends State<ExplorePage> {
     exploreProvider.getSources();
     exploreProvider.getPopularPosts();
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: Container(
-            color: Theme.of(context).backgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
-              child: Row(
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("Explore", style: Theme.of(context).textTheme.title
-                      ),
-                      Text("Find news from all categories!", style: Theme.of(context).textTheme.display2
-                      ),
-
-                    ],
-                  ),
-                ],
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 20,),
+            Text("Explore!", style:Theme.of(context).textTheme.title
             ),
-          ),
+            Text("Find news from all categories", style: Theme.of(context).textTheme.display2
+            ),
+            SizedBox(height: 20,)
+          ],
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-            color: Theme.of(context).backgroundColor,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-               Text("Categories", style: new TextStyle(
-                   fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+          color: Theme.of(context).backgroundColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+             Text("Categories", style: new TextStyle(
+                 fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
+              ),
+             ),
+              Container(
+                height: 50,
+                color: Theme.of(context).backgroundColor,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, position ) =>
+                      GestureDetector(child: CategoryView(capitalize(categoryList[position])), onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesPage(categoryList[position])));
+                      },),
+                  itemCount: categoryList.length,
+                  shrinkWrap: true,
                 ),
-               ),
-                Container(
-                  height: 50,
-                  color: Theme.of(context).backgroundColor,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, position ) =>
-                        GestureDetector(child: CategoryView(capitalize(categoryList[position])), onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesPage(categoryList[position])));
-                        },),
-                    itemCount: categoryList.length,
-                    shrinkWrap: true,
-                  ),
-                ),
-               SizedBox(height: 10,),
-               Text("Sources", style: new TextStyle(
-                   fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
-               ),
-               ),
-               SizedBox(height: 2,),
-               loadingSourcesAccordingToProviderState(exploreProvider),
-               SizedBox(height: 10,),
-               Text("Popular", style: new TextStyle(
-                   fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
-               ),
-               ),
-                loadingPopularAccordingToProviderState(exploreProvider)
-              ],
-            ),
+              ),
+             SizedBox(height: 10,),
+             Text("Sources", style: new TextStyle(
+                 fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
+             ),
+             ),
+             SizedBox(height: 2,),
+             loadingSourcesAccordingToProviderState(exploreProvider),
+             SizedBox(height: 10,),
+             Text("Popular", style: new TextStyle(
+                 fontSize: 20.0, fontFamily: Utils.getBoldFont(), color: Colors.green /* #10db5d */
+             ),
+             ),
+              loadingPopularAccordingToProviderState(exploreProvider)
+            ],
           ),
         ),
       ),

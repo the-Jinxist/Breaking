@@ -30,83 +30,81 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(80),
-          child: Container(
-            color: Theme.of(context).backgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Icon(Icons.arrow_back, size: 27,),
-                  ),
-                  SizedBox(width: 20,),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("Category", style: Theme.of(context).textTheme.display2,
-                      ),
-                      Text("${capitalize(categoryName)}", style: Theme.of(context).textTheme.title
-                      ),
-
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back, size: 27,),
         ),
-        body: Container(
-          color: Theme.of(context).backgroundColor,
-          child: FutureBuilder(
-              future: getModels(categoryName),
-              builder: (context, snapshot){
-                if(snapshot.hasData){
-                  var headlineModel = snapshot.data as HeadlineModel;
-                  if (headlineModel != null) {
-                    print("Categories Page: Data dey!");
-                    return ListView.builder(
-                      itemBuilder: (context, position) =>
-                        InkWell(
-                          onTap: (){
-                            var headline = headlineModel.articles[position];
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => WebPageView(url: headline.url, sourceName: headline.source.name,))
-                            );
-                          },
-                          child: HeadlineView(headlineModel.articles[position])
-                        ),
-                      itemCount: headlineModel.articles.length,
-                    );
-                  } else {
-                    print("Categories Page: Data no dey!");
-                    return Flex(
-                      direction: Axis.vertical,
-                      children: <Widget>[
-                        Expanded(child:
-                        Center(
-                            child: Column(
-                              children: <Widget>[
-                                Icon(Icons.error, size: 40, color: Colors.red,),
-                                SizedBox(height: 4),
-                                Text("Please check your internet connection", style: Theme.of(context).textTheme.display2,)
-                              ],
-                            )
-                        )
-                        )
-                      ],
-                    );
-                  }
 
-                }else if(snapshot.hasError){
-                  print("Categories Page: Error dey!");
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text("Category", style: Theme.of(context).textTheme.display2,
+            ),
+            Text("${capitalize(categoryName)}", style: Theme.of(context).textTheme.title
+            ),
+
+          ],
+        ),
+      ),
+
+//        PreferredSize(
+//          preferredSize: Size.fromHeight(80),
+//          child: Container(
+//            color: Theme.of(context).backgroundColor,
+//            child: Padding(
+//              padding: const EdgeInsets.only(left: 16,top: 13, bottom: 10, right: 10),
+//              child: Row(
+//                crossAxisAlignment: CrossAxisAlignment.center,
+//                children: <Widget>[
+//                  GestureDetector(
+//                    onTap: () => Navigator.pop(context),
+//                    child: Icon(Icons.arrow_back, size: 27,),
+//                  ),
+//                  SizedBox(width: 20,),
+//                  Column(
+//                    mainAxisAlignment: MainAxisAlignment.start,
+//                    crossAxisAlignment: CrossAxisAlignment.start,
+//                    children: <Widget>[
+//                      Text("Category", style: Theme.of(context).textTheme.display2,
+//                      ),
+//                      Text("${capitalize(categoryName)}", style: Theme.of(context).textTheme.title
+//                      ),
+//
+//                    ],
+//                  ),
+//                ],
+//              ),
+//            ),
+//          ),
+//        ),
+      body: Container(
+        color: Theme.of(context).backgroundColor,
+        child: FutureBuilder(
+            future: getModels(categoryName),
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                var headlineModel = snapshot.data as HeadlineModel;
+                if (headlineModel != null) {
+                  print("Categories Page: Data dey!");
+                  return ListView.builder(
+                    itemBuilder: (context, position) =>
+                      InkWell(
+                        onTap: (){
+                          var headline = headlineModel.articles[position];
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => WebPageView(url: headline.url, sourceName: headline.source.name,))
+                          );
+                        },
+                        child: HeadlineView(headlineModel.articles[position])
+                      ),
+                    itemCount: headlineModel.articles.length,
+                  );
+                } else {
+                  print("Categories Page: Data no dey!");
                   return Flex(
                     direction: Axis.vertical,
                     children: <Widget>[
@@ -123,21 +121,40 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       )
                     ],
                   );
-                }else{
-                  return Flex(
-                    direction: Axis.vertical,
-                    children: <Widget>[
-                      Expanded(child:
-                      Center(
-                          child: CircularProgressIndicator()
-                        )
-                      )
-                    ],
-                  );
                 }
+
+              }else if(snapshot.hasError){
+                print("Categories Page: Error dey!");
+                return Flex(
+                  direction: Axis.vertical,
+                  children: <Widget>[
+                    Expanded(child:
+                    Center(
+                        child: Column(
+                          children: <Widget>[
+                            Icon(Icons.error, size: 40, color: Colors.red,),
+                            SizedBox(height: 4),
+                            Text("Please check your internet connection", style: Theme.of(context).textTheme.display2,)
+                          ],
+                        )
+                    )
+                    )
+                  ],
+                );
+              }else{
+                return Flex(
+                  direction: Axis.vertical,
+                  children: <Widget>[
+                    Expanded(child:
+                    Center(
+                        child: CircularProgressIndicator()
+                      )
+                    )
+                  ],
+                );
               }
-            ),
-        ),
+            }
+          ),
       ),
     );
   }

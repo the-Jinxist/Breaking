@@ -32,22 +32,26 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavyBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home', style: Theme.of(context).textTheme.display2,),
+            textAlign: TextAlign.center,
+            title: Text('Home', style: Theme.of(context).textTheme.caption,),
             activeColor: Colors.green,
           ),
           BottomNavyBarItem(
               icon: Icon(Icons.explore),
-              title: Text('Explore', style: Theme.of(context).textTheme.display2,),
+              textAlign: TextAlign.center,
+              title: Text('Explore', style: Theme.of(context).textTheme.caption,),
               activeColor: Colors.green
           ),
           BottomNavyBarItem(
               icon: Icon(Icons.search),
-              title: Text('Search', style: Theme.of(context).textTheme.display2),
+              textAlign: TextAlign.center,
+              title: Text('Search', style: Theme.of(context).textTheme.caption),
               activeColor: Colors.green
           ),
           BottomNavyBarItem(
               icon: Icon(Icons.settings),
-              title: Text('Settings', style: Theme.of(context).textTheme.display2),
+              textAlign: TextAlign.center,
+              title: Text('Settings', style: Theme.of(context).textTheme.caption),
               activeColor: Colors.green
           ),
         ],
